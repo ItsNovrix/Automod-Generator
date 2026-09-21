@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit AutoMod Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>AutoMod Rule Generator</h1>
+        <p>Select your rules below to generate the YAML configuration for your subreddit.</p>
+    </header>
+    
+    <main class="container">
+        <!-- Left Column: The Form Controls -->
+        <section class="controls">
+            <form id="automod-form">
+                
+                <fieldset>
+                    <legend>Essential Rules</legend>
+                    
+                    <div class="input-group">
+                        <input type="checkbox" id="pinned-comment-toggle">
+                        <label for="pinned-comment-toggle">Add a pinned welcome comment to all posts</label>
+                    </div>
+                    
+                    <!-- Hidden by default via CSS; toggled by JS -->
+                    <div class="sub-input" id="pinned-comment-settings">
+                        <label for="pinned-comment-text">Comment Text:</label>
+                        <textarea id="pinned-comment-text" rows="4">Thank you for posting on r/{{subreddit}}!</textarea>
+                    </div>
+                </fieldset>
+
+                <!-- Additional rule categories will go here -->
+                
+            </form>
+        </section>
+
+        <!-- Right Column: The Live Output -->
+        <section class="output-panel">
+            <div class="sticky-container">
+                <h2>Generated YAML</h2>
+                <pre><code id="yaml-output"># Select a rule on the left to generate code...</code></pre>
+                <button id="copy-btn">Copy Rules Code</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

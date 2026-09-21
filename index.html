@@ -38,6 +38,44 @@
                     </div>
                 </fieldset>
 
+                <fieldset>
+                    <legend>User Restrictions</legend>
+
+                    <!-- Account Age Filter -->
+                    <div class="input-group">
+                        <input type="checkbox" id="age-filter-toggle">
+                        <label for="age-filter-toggle">Filter posts/comments from brand new accounts</label>
+                    </div>
+                    <div class="sub-input" id="age-filter-settings">
+                        <label for="age-days">Minimum Account Age (in days):</label>
+                        <input type="number" id="age-days" value="7" min="1">
+                        
+                        <label for="age-action" style="display:block; margin-top:10px;">Action to take:</label>
+                        <select id="age-action">
+                            <option value="filter">Filter (Send to Modqueue)</option>
+                            <option value="remove">Remove (Delete immediately)</option>
+                        </select>
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid var(--border); margin: 15px 0;">
+
+                    <!-- Low Karma Filter -->
+                    <div class="input-group">
+                        <input type="checkbox" id="karma-filter-toggle">
+                        <label for="karma-filter-toggle">Filter posts/comments from low karma users</label>
+                    </div>
+                    <div class="sub-input" id="karma-filter-settings">
+                        <label for="karma-amount">Minimum Combined Karma:</label>
+                        <input type="number" id="karma-amount" value="50">
+                        
+                        <label for="karma-action" style="display:block; margin-top:10px;">Action to take:</label>
+                        <select id="karma-action">
+                            <option value="filter">Filter (Send to Modqueue)</option>
+                            <option value="remove">Remove (Delete immediately)</option>
+                        </select>
+                    </div>
+                </fieldset>
+
                 <!-- Additional rule categories will go here -->
                 
             </form>

@@ -13,17 +13,14 @@ const pinnedLock = document.getElementById('pinned-comment-lock');
 const ageToggle = document.getElementById('age-filter-toggle');
 const ageSettings = document.getElementById('age-filter-settings');
 const ageDays = document.getElementById('age-days');
+const ageTarget = document.getElementById('age-target');
 const ageAction = document.getElementById('age-action');
 
 const karmaToggle = document.getElementById('karma-filter-toggle');
 const karmaSettings = document.getElementById('karma-filter-settings');
+const karmaType = document.getElementById('karma-type');
+const karmaTarget = document.getElementById('karma-target');
 const karmaAmount = document.getElementById('karma-amount');
-const karmaAction = document.getElementById('karma-action');
-
-const karmaToggle = document.getElementById('karma-filter-toggle');
-const karmaSettings = document.getElementById('karma-filter-settings');
-const karmaAmount = document.getElementById('karma-amount');
-const karmaType = document.getElementById('karma-type'); // NEW
 const karmaAction = document.getElementById('karma-action');
 
 // 2. UI Toggle Logic
@@ -74,10 +71,10 @@ function generateYAML() {
     // Rule: Account Age Filter
     if (ageToggle.checked && ageDays.value > 0) {
         hasRules = true;
-        yaml += `type: any\n`;
+        yaml += `type: ${ageTarget.value}\n`; // UPDATED
         yaml += `author:\n`;
         yaml += `    account_age: "< ${ageDays.value} days"\n`;
-        yaml += `    is_moderator: false\n`; // Crucial: prevents mod filtering
+        yaml += `    is_moderator: false\n`; 
         yaml += `action: ${ageAction.value}\n`;
         yaml += `action_reason: "Account is younger than ${ageDays.value} days"\n`;
         yaml += `---\n`;
@@ -86,15 +83,12 @@ function generateYAML() {
     // Rule: Low Karma Filter
     if (karmaToggle.checked && karmaAmount.value !== "") {
         hasRules = true;
-        yaml += `type: any\n`;
+        yaml += `type: ${karmaTarget.value}\n`; // UPDATED
         yaml += `author:\n`;
-        
-        // Dynamically inject the karma type selected from the dropdown
         yaml += `    ${karmaType.value}: "< ${karmaAmount.value}"\n`;
         yaml += `    is_moderator: false\n`;
         yaml += `action: ${karmaAction.value}\n`;
         
-        // Format a clean action reason based on the selected dropdown
         const readableKarmaType = karmaType.options[karmaType.selectedIndex].text;
         yaml += `action_reason: "User has less than ${karmaAmount.value} ${readableKarmaType}"\n`;
         yaml += `---\n`;
@@ -108,10 +102,14 @@ function generateYAML() {
 }
 
 // 4. Event Listeners
-form.addEventListener('input', () => {
+function updateAll() {
     updateUI();
     generateYAML();
-});
+}
+
+// Catch both typing events (input) and dropdown selections (change)
+form.addEventListener('input', updateAll);
+form.addEventListener('change', updateAll);
 
 copyBtn.addEventListener('click', () => {
     const textToCopy = yamlOutput.textContent;

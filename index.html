@@ -100,6 +100,37 @@
                         </select>
                     </div>
                 </fieldset>
+
+                <fieldset>
+                    <legend>Automated Responses</legend>
+
+                    <!-- Auto-Reply by Keyword -->
+                    <div class="input-group">
+                        <input type="checkbox" id="auto-reply-toggle">
+                        <label for="auto-reply-toggle">Auto-reply to specific keywords</label>
+                    </div>
+                    
+                    <div class="sub-input" id="auto-reply-settings">
+                        <label for="auto-reply-target">Where to look for keywords:</label>
+                        <select id="auto-reply-target">
+                            <option value="any">Posts and Comments</option>
+                            <option value="submission">Posts Only</option>
+                            <option value="comment">Comments Only</option>
+                        </select>
+
+                        <label for="auto-reply-keywords" style="display:block; margin-top:10px;">Trigger Keywords (comma separated):</label>
+                        <input type="text" id="auto-reply-keywords" placeholder="e.g., discord, rules, wiki">
+                        
+                        <label for="auto-reply-message" style="display:block; margin-top:10px;">Bot Reply Message:</label>
+                        <textarea id="auto-reply-message" rows="4" placeholder="Here is the link to our Discord server..."></textarea>
+                        
+                        <!-- Lock Toggle for the bot's reply -->
+                        <div class="input-group" style="margin-top: 10px;">
+                            <input type="checkbox" id="auto-reply-lock">
+                            <label for="auto-reply-lock">Lock the bot's comment so users cannot reply to it</label>
+                        </div>
+                    </div>
+                </fieldset>
                 
             </form>
         </section>

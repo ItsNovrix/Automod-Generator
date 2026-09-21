@@ -38,7 +38,7 @@
                     </div>
                 </fieldset>
 
-                <!-- NEW User Restrictions Fieldset (Now safely inside the form) -->
+                <!-- User Restrictions Fieldset -->
                 <fieldset>
                     <legend>User Restrictions</legend>
 
@@ -48,7 +48,14 @@
                         <label for="age-filter-toggle">Filter posts/comments based on account age</label>
                     </div>
                     <div class="sub-input" id="age-filter-settings">
-                        <label for="age-days">Minimum Account Age (in days):</label>
+                        <label for="age-target">Target:</label>
+                        <select id="age-target">
+                            <option value="any">Posts and Comments</option>
+                            <option value="submission">Posts Only</option>
+                            <option value="comment">Comments Only</option>
+                        </select>
+
+                        <label for="age-days" style="display:block; margin-top:10px;">Minimum Account Age (in days):</label>
                         <input type="number" id="age-days" value="7" min="1">
                         
                         <label for="age-action" style="display:block; margin-top:10px;">Action to take:</label>
@@ -66,7 +73,14 @@
                         <label for="karma-filter-toggle">Filter posts/comments based on user karma</label>
                     </div>
                     <div class="sub-input" id="karma-filter-settings">
-                        <label for="karma-amount">Minimum Karma Required:</label>
+                        <label for="karma-target">Target:</label>
+                        <select id="karma-target">
+                            <option value="any">Posts and Comments</option>
+                            <option value="submission">Posts Only</option>
+                            <option value="comment">Comments Only</option>
+                        </select>
+
+                        <label for="karma-amount" style="display:block; margin-top:10px;">Minimum Karma Required:</label>
                         <input type="number" id="karma-amount" value="50">
 
                         <label for="karma-type" style="display:block; margin-top:10px;">Karma Type to Check:</label>

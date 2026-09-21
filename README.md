@@ -40,4 +40,35 @@ Let's look at how AutoMod rules work in practice. Don't worry about the technica
 > 
 > **What AutoMod does:** Automatically removes comments containing political keywords and sends them to the mod queue for review. Keeps discussions on-topic without censoring legitimate conversation.
 
-What AutoMod does: Automatically removes comments containing political keywords and sends them to the mod queue for review. Keeps discussions on-topic without censoring legitimate conversation.
+## Common Reddit AutoModerator Rules Explained
+
+This generator includes dozens of pre-configured rules that solve real moderation challenges. Here's what each category does in plain language:
+
+**Essential Protection Rules**
+
+* Pinned Comments: Like having a helpful assistant greet every visitor with important information
+* Account Age Filtering: Blocks posts from accounts created minutes ago. Spammers love fresh accounts.
+* Karma Requirements: Only lets people who've earned respect on Reddit participate in your community
+* Spam Detection: Catches "GET RICH QUICK" and "CLICK HERE NOW" posts before anyone sees them
+* Auto-Report Threshold: If 3+ users report something, it's probably bad. AutoMod handles it immediately.
+
+**Content Quality Controls**
+
+* ALL CAPS Removal: Nobody likes being SHOUTED AT IN EVERY POST!!!
+* Edit Protection: Catches sneaky users who post something innocent then edit in spam later
+* Auto-Reply System: Answers common questions automatically (saves you from typing the same response 100 times)
+
+**Smart User Management**
+
+* Shadowban Users: Problematic users think they're posting, but only they can see it
+* New User Flair: Adds a "New User" tag so everyone knows to be patient and helpful
+* Throwaway Detection: Blocks accounts named "throwaway12345" from stirring up drama
+* Email Verification: Only serious users verify their email. Filters out trolls.
+* Engagement Requirements: Must comment helpfully before being allowed to post
+
+**Content Organization**
+
+* Crosspost Control: Choose which communities can share content to yours
+* Contest Mode: Randomizes comment order for fair competitions
+* NSFW Auto-Tagging: Protects users at work by auto-marking sensitive content
+* Spoiler Auto-Tagging: Prevents ruining movies/shows for others automatically

@@ -38,13 +38,14 @@
                     </div>
                 </fieldset>
 
+                <!-- NEW User Restrictions Fieldset (Now safely inside the form) -->
                 <fieldset>
                     <legend>User Restrictions</legend>
 
                     <!-- Account Age Filter -->
                     <div class="input-group">
                         <input type="checkbox" id="age-filter-toggle">
-                        <label for="age-filter-toggle">Filter posts/comments from brand new accounts</label>
+                        <label for="age-filter-toggle">Filter posts/comments based on account age</label>
                     </div>
                     <div class="sub-input" id="age-filter-settings">
                         <label for="age-days">Minimum Account Age (in days):</label>
@@ -59,14 +60,24 @@
 
                     <hr style="border: 0; border-top: 1px solid var(--border); margin: 15px 0;">
 
-                    <!-- Low Karma Filter -->
+                    <!-- Advanced Karma Filter -->
                     <div class="input-group">
                         <input type="checkbox" id="karma-filter-toggle">
-                        <label for="karma-filter-toggle">Filter posts/comments from low karma users</label>
+                        <label for="karma-filter-toggle">Filter posts/comments based on user karma</label>
                     </div>
                     <div class="sub-input" id="karma-filter-settings">
-                        <label for="karma-amount">Minimum Combined Karma:</label>
+                        <label for="karma-amount">Minimum Karma Required:</label>
                         <input type="number" id="karma-amount" value="50">
+
+                        <label for="karma-type" style="display:block; margin-top:10px;">Karma Type to Check:</label>
+                        <select id="karma-type">
+                            <option value="combined_karma">Sitewide - Combined</option>
+                            <option value="post_karma">Sitewide - Post Karma Only</option>
+                            <option value="comment_karma">Sitewide - Comment Karma Only</option>
+                            <option value="combined_subreddit_karma">This Subreddit - Combined</option>
+                            <option value="post_subreddit_karma">This Subreddit - Post Karma Only</option>
+                            <option value="comment_subreddit_karma">This Subreddit - Comment Karma Only</option>
+                        </select>
                         
                         <label for="karma-action" style="display:block; margin-top:10px;">Action to take:</label>
                         <select id="karma-action">
@@ -75,8 +86,6 @@
                         </select>
                     </div>
                 </fieldset>
-
-                <!-- Additional rule categories will go here -->
                 
             </form>
         </section>

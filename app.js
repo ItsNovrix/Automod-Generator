@@ -1,21 +1,22 @@
-// 1. Grab DOM Elements
+// 1. DOM Elements
 const form = document.getElementById('automod-form');
 const yamlOutput = document.getElementById('yaml-output');
 const copyBtn = document.getElementById('copy-btn');
 
-// Checkboxes and their sub-menus
+// Pinned Comments Elements
 const pinnedToggle = document.getElementById('pinned-comment-toggle');
 const pinnedSettings = document.getElementById('pinned-comment-settings');
 const pinnedText = document.getElementById('pinned-comment-text');
 const pinnedLock = document.getElementById('pinned-comment-lock');
 
-// User Filter Elements
+// User Age Elements
 const ageToggle = document.getElementById('age-filter-toggle');
 const ageSettings = document.getElementById('age-filter-settings');
 const ageDays = document.getElementById('age-days');
 const ageTarget = document.getElementById('age-target');
 const ageAction = document.getElementById('age-action');
 
+// User Karma Elements
 const karmaToggle = document.getElementById('karma-filter-toggle');
 const karmaSettings = document.getElementById('karma-filter-settings');
 const karmaType = document.getElementById('karma-type');
@@ -23,8 +24,17 @@ const karmaTarget = document.getElementById('karma-target');
 const karmaAmount = document.getElementById('karma-amount');
 const karmaAction = document.getElementById('karma-action');
 
+// Auto-Reply Elements
+const autoReplyToggle = document.getElementById('auto-reply-toggle');
+const autoReplySettings = document.getElementById('auto-reply-settings');
+const autoReplyTarget = document.getElementById('auto-reply-target');
+const autoReplyKeywords = document.getElementById('auto-reply-keywords');
+const autoReplyMessage = document.getElementById('auto-reply-message');
+const autoReplyLock = document.getElementById('auto-reply-lock');
+
 // 2. UI Toggle Logic
 function updateUI() {
+    
     // Pinned Comment
     if (pinnedToggle.checked) {
         pinnedSettings.classList.add('visible');
@@ -44,6 +54,13 @@ function updateUI() {
         karmaSettings.classList.add('visible');
     } else {
         karmaSettings.classList.remove('visible');
+    }
+
+    // Auto-Reply
+    if (autoReplyToggle.checked) {
+        autoReplySettings.classList.add('visible');
+    } else {
+        autoReplySettings.classList.remove('visible');
     }
 }
 
@@ -91,6 +108,23 @@ function generateYAML() {
         
         const readableKarmaType = karmaType.options[karmaType.selectedIndex].text;
         yaml += `action_reason: "User has less than ${karmaAmount.value} ${readableKarmaType}"\n`;
+        yaml += `---\n`;
+    }
+
+    // Rule: Auto-Reply by Keyword
+    if (autoReplyToggle.checked && autoReplyKeywords.value.trim() !== "" && autoReplyMessage.value.trim() !== "") {
+        hasRules = true;
+        
+        const keywordArray = autoReplyKeywords.value.split(',').map(k => `"${k.trim()}"`).filter(k => k !== '""').join(', ');
+        yaml += `type: ${autoReplyTarget.value}\n`;
+        yaml += `title+body (includes): [${keywordArray}]\n`;
+        
+        const indentedReply = autoReplyMessage.value.split('\n').map(line => `    ${line}`).join('\n');
+        yaml += `comment: |\n${indentedReply}\n`;
+        
+        if (autoReplyLock.checked) {
+            yaml += `comment_locked: true\n`;
+        }
         yaml += `---\n`;
     }
 

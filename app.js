@@ -28,9 +28,11 @@ const karmaAction = document.getElementById('karma-action');
 const autoReplyToggle = document.getElementById('auto-reply-toggle');
 const autoReplySettings = document.getElementById('auto-reply-settings');
 const autoReplyTarget = document.getElementById('auto-reply-target');
-const autoReplyKeywords = document.getElementById('auto-reply-keywords');
 const autoReplyMessage = document.getElementById('auto-reply-message');
 const autoReplyLock = document.getElementById('auto-reply-lock');
+const autoReplyTagContainer = document.getElementById('auto-reply-tag-container');
+const autoReplyKeywordInput = document.getElementById('auto-reply-keyword-input');
+let autoReplyKeywordsArray = [];
 
 // 2. UI Toggle Logic
 function updateUI() {
@@ -63,6 +65,44 @@ function updateUI() {
         autoReplySettings.classList.remove('visible');
     }
 }
+
+// --- TAG INPUT ENGINE ---
+function renderTags() {
+    const existingTags = autoReplyTagContainer.querySelectorAll('.tag-bubble');
+    existingTags.forEach(tag => tag.remove());
+
+    autoReplyKeywordsArray.forEach((keyword, index) => {
+        const tag = document.createElement('span');
+        tag.classList.add('tag-bubble');
+        tag.innerHTML = `${keyword} <span class="tag-close" data-index="${index}">&times;</span>`;
+        autoReplyTagContainer.insertBefore(tag, autoReplyKeywordInput);
+    });
+
+    updateUI();
+    generateYAML();
+}
+
+autoReplyTagContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('tag-close')) {
+        const indexToRemove = e.target.getAttribute('data-index');
+        autoReplyKeywordsArray.splice(indexToRemove, 1);
+        renderTags();
+    }
+});
+
+autoReplyKeywordInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        const rawWord = autoReplyKeywordInput.value.trim();
+        if (rawWord !== '' && !autoReplyKeywordsArray.includes(rawWord)) {
+            autoReplyKeywordsArray.push(rawWord);
+            autoReplyKeywordInput.value = '';
+            renderTags();
+        } else {
+            autoReplyKeywordInput.value = '';
+        }
+    }
+});
 
 // 3. YAML Compiler
 function generateYAML() {
@@ -112,12 +152,12 @@ function generateYAML() {
     }
 
     // Rule: Auto-Reply by Keyword
-    if (autoReplyToggle.checked && autoReplyKeywords.value.trim() !== "" && autoReplyMessage.value.trim() !== "") {
+    if (autoReplyToggle.checked && autoReplyKeywordsArray.length > 0 && autoReplyMessage.value.trim() !== "") {
         hasRules = true;
         
-        const keywordArray = autoReplyKeywords.value.split(',').map(k => `"${k.trim()}"`).filter(k => k !== '""').join(', ');
+        const formattedArray = autoReplyKeywordsArray.map(k => `"${k}"`).join(', ');
         yaml += `type: ${autoReplyTarget.value}\n`;
-        yaml += `title+body (includes): [${keywordArray}]\n`;
+        yaml += `title+body (includes): [${formattedArray}]\n`;
         
         const indentedReply = autoReplyMessage.value.split('\n').map(line => `    ${line}`).join('\n');
         yaml += `comment: |\n${indentedReply}\n`;

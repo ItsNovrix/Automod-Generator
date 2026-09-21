@@ -20,6 +20,12 @@ const karmaSettings = document.getElementById('karma-filter-settings');
 const karmaAmount = document.getElementById('karma-amount');
 const karmaAction = document.getElementById('karma-action');
 
+const karmaToggle = document.getElementById('karma-filter-toggle');
+const karmaSettings = document.getElementById('karma-filter-settings');
+const karmaAmount = document.getElementById('karma-amount');
+const karmaType = document.getElementById('karma-type'); // NEW
+const karmaAction = document.getElementById('karma-action');
+
 // 2. UI Toggle Logic
 function updateUI() {
     // Pinned Comment
@@ -82,10 +88,15 @@ function generateYAML() {
         hasRules = true;
         yaml += `type: any\n`;
         yaml += `author:\n`;
-        yaml += `    combined_karma: "< ${karmaAmount.value}"\n`;
+        
+        // Dynamically inject the karma type selected from the dropdown
+        yaml += `    ${karmaType.value}: "< ${karmaAmount.value}"\n`;
         yaml += `    is_moderator: false\n`;
         yaml += `action: ${karmaAction.value}\n`;
-        yaml += `action_reason: "User has less than ${karmaAmount.value} combined karma"\n`;
+        
+        // Format a clean action reason based on the selected dropdown
+        const readableKarmaType = karmaType.options[karmaType.selectedIndex].text;
+        yaml += `action_reason: "User has less than ${karmaAmount.value} ${readableKarmaType}"\n`;
         yaml += `---\n`;
     }
 

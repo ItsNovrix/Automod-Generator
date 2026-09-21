@@ -102,14 +102,13 @@ function generateYAML() {
 }
 
 // 4. Event Listeners
-function updateAll() {
-    updateUI();
-    generateYAML();
-}
+ form.addEventListener('input', () => {
 
-// Catch both typing events (input) and dropdown selections (change)
-form.addEventListener('input', updateAll);
-form.addEventListener('change', updateAll);
+    updateUI();
+
+    generateYAML();
+
+});
 
 copyBtn.addEventListener('click', () => {
     const textToCopy = yamlOutput.textContent;

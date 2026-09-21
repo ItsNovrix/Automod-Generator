@@ -6,11 +6,15 @@ Reddit AutoModerator operates by scanning all new submissions and comments in yo
 
 Here's the simple process: Someone posts, AutoMod checks it instantly. If it matches a rule, AutoMod acts. The action happens in 1-2 seconds. No waiting, no delays, no human intervention needed.
 
+---
+
 ## AutoMod vs Reddit's New Automation Tools
 
 Reddit has introduced new automation features like "Community Assists" and simplified rule builders, but AutoModerator remains the most powerful and flexible option. While the new tools are user-friendly with point-and-click interfaces, they're limited to basic scenarios and lack the nuanced control that AutoMod provides.
 
 AutoMod's YAML configuration might look technical, but that's exactly why our generator exists: to give you AutoMod's full power without needing to learn the syntax. You get enterprise-level moderation capabilities that the simplified tools can't match, all through our easy-to-use interface.
+
+---
 
 ## Understanding AutoMod Rules Through Real Examples
 
@@ -39,6 +43,8 @@ Let's look at how AutoMod rules work in practice. Don't worry about the technica
 > **Scenario:** Political arguments keep derailing discussions in your hobby subreddit.
 > 
 > **What AutoMod does:** Automatically removes comments containing political keywords and sends them to the mod queue for review. Keeps discussions on-topic without censoring legitimate conversation.
+
+---
 
 ## Common Reddit AutoModerator Rules Explained
 
@@ -72,3 +78,14 @@ This generator includes dozens of pre-configured rules that solve real moderatio
 * Contest Mode: Randomizes comment order for fair competitions
 * NSFW Auto-Tagging: Protects users at work by auto-marking sensitive content
 * Spoiler Auto-Tagging: Prevents ruining movies/shows for others automatically
+
+---
+
+## Setting Up Reddit AutoModerator
+
+Setting up your subreddit's AutoMod using our AutoMod Generator tool is easy!
+
+* Use our generator above to select the rules you want. No coding needed. Just click checkboxes and fill in your preferences.
+* Click "Copy Rules Code" to copy the generated YAML configuration.
+* Go to reddit.com/r/YOUR_SUBREDDIT/wiki/config/automoderator (replace YOUR_SUBREDDIT with your actual subreddit name).
+* Paste the code and click save. That's it! AutoMod starts working immediately.

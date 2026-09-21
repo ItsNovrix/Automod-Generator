@@ -7,10 +7,10 @@ const copyBtn = document.getElementById('copy-btn');
 const pinnedToggle = document.getElementById('pinned-comment-toggle');
 const pinnedSettings = document.getElementById('pinned-comment-settings');
 const pinnedText = document.getElementById('pinned-comment-text');
+const pinnedLock = document.getElementById('pinned-comment-lock'); // NEW
 
 // 2. UI Toggle Logic
 function updateUI() {
-    // Show/hide the textarea based on the checkbox state
     if (pinnedToggle.checked) {
         pinnedSettings.classList.add('visible');
     } else {
@@ -28,17 +28,18 @@ function generateYAML() {
         hasRules = true;
         yaml += `type: submission\n`;
         
-        // Split the text area by line and indent each line with 4 spaces for valid YAML
         const indentedComment = pinnedText.value.split('\n').map(line => `    ${line}`).join('\n');
         yaml += `comment: |\n${indentedComment}\n`;
-        
-        // This is the Explicit Lock/Sticky logic we recovered from the old site
         yaml += `comment_stickied: true\n`;
-        yaml += `comment_locked: true\n`;
+        
+        // NEW: Only lock the comment if the user explicitly wants to
+        if (pinnedLock.checked) {
+            yaml += `comment_locked: true\n`;
+        }
+        
         yaml += `---\n`;
     }
 
-    // Default state if no rules are selected
     if (!hasRules) {
         yaml = `# Select a rule on the left to generate code...`;
     }
@@ -46,14 +47,12 @@ function generateYAML() {
     yamlOutput.textContent = yaml;
 }
 
-// 4. Event Listeners (Triggers)
-// Listen for clicks on the form to update UI and YAML
+// 4. Event Listeners
 form.addEventListener('input', () => {
     updateUI();
     generateYAML();
 });
 
-// Copy to Clipboard functionality
 copyBtn.addEventListener('click', () => {
     const textToCopy = yamlOutput.textContent;
     if (textToCopy === `# Select a rule on the left to generate code...`) return;
@@ -61,7 +60,7 @@ copyBtn.addEventListener('click', () => {
     navigator.clipboard.writeText(textToCopy).then(() => {
         const originalText = copyBtn.textContent;
         copyBtn.textContent = 'Copied!';
-        copyBtn.style.backgroundColor = '#28a745'; // Success green
+        copyBtn.style.backgroundColor = '#28a745';
 
         setTimeout(() => {
             copyBtn.textContent = originalText;

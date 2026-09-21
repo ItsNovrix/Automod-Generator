@@ -23,10 +23,10 @@ Let's look at how AutoMod rules work in practice. Don't worry about the technica
 **What AutoMod does:** Instantly comments on every new post with your message. No manual work needed. Every single poster gets the same helpful reminder within seconds.
 
 > **Example 2: The Spam Fighter**
-
-**Scenario:** Your r/fitness community is getting flooded with supplement spam from brand-new accounts.
-
-**What AutoMod does:** Automatically removes posts from accounts less than 7 days old that mention "supplement", "pills", or "discount". Real members can post normally, but spammers are blocked instantly.
+>
+> **Scenario:** Your r/fitness community is getting flooded with supplement spam from brand-new accounts.
+>
+> **What AutoMod does:** Automatically removes posts from accounts less than 7 days old that mention "supplement", "pills", or "discount". Real members can post normally, but spammers are blocked instantly.
 
 > **Example 3: The Quality Guardian*
 

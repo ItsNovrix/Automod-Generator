@@ -17,27 +17,27 @@ AutoMod's YAML configuration might look technical, but that's exactly why our ge
 Let's look at how AutoMod rules work in practice. Don't worry about the technical details. Our generator handles all of this for you automatically.
 
 > **Example 1: The Welcome Message**
-
-**Scenario:** You want every new post in r/cooking to get a friendly reminder about including the recipe.
-
-**What AutoMod does:** Instantly comments on every new post with your message. No manual work needed. Every single poster gets the same helpful reminder within seconds.
+> 
+> **Scenario:** You want every new post in r/cooking to get a friendly reminder about including the recipe.
+> 
+> **What AutoMod does:** Instantly comments on every new post with your message. No manual work needed. Every single poster gets the same helpful reminder within seconds.
 
 > **Example 2: The Spam Fighter**
->
+> 
 > **Scenario:** Your r/fitness community is getting flooded with supplement spam from brand-new accounts.
->
+> 
 > **What AutoMod does:** Automatically removes posts from accounts less than 7 days old that mention "supplement", "pills", or "discount". Real members can post normally, but spammers are blocked instantly.
 
 > **Example 3: The Quality Guardian*
-
-**Scenario:** r/photography requires all posts to have descriptive titles with camera settings.
-
-**What AutoMod does:** Removes posts with titles like "Check this out!" and leaves a comment explaining the title format. Posts with proper titles like "Sunset at Grand Canyon [Canon 5D, f/8, 1/250s]" go through immediately.
+> 
+> **Scenario:** r/photography requires all posts to have descriptive titles with camera settings.
+> 
+> **What AutoMod does:** Removes posts with titles like "Check this out!" and leaves a comment explaining the title format. Posts with proper titles like "Sunset at Grand Canyon [Canon 5D, f/8, 1/250s]" go through immediately.
 
 > **Example 4: The Drama Preventer**
-
-**Scenario:** Political arguments keep derailing discussions in your hobby subreddit.
-
-**What AutoMod does:** Automatically removes comments containing political keywords and sends them to the mod queue for review. Keeps discussions on-topic without censoring legitimate conversation.
+> 
+> **Scenario:** Political arguments keep derailing discussions in your hobby subreddit.
+> 
+> **What AutoMod does:** Automatically removes comments containing political keywords and sends them to the mod queue for review. Keeps discussions on-topic without censoring legitimate conversation.
 
 What AutoMod does: Automatically removes comments containing political keywords and sends them to the mod queue for review. Keeps discussions on-topic without censoring legitimate conversation.

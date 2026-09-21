@@ -118,8 +118,10 @@
                             <option value="comment">Comments Only</option>
                         </select>
 
-                        <label for="auto-reply-keywords" style="display:block; margin-top:10px;">Trigger Keywords (comma separated):</label>
-                        <input type="text" id="auto-reply-keywords" placeholder="e.g., discord, rules, wiki">
+                        <label for="auto-reply-keyword-input" style="display:block; margin-top:10px;">Trigger Keywords (Type and press Enter):</label>
+                        <div class="tag-input-container" id="auto-reply-tag-container">
+                            <input type="text" id="auto-reply-keyword-input" placeholder="e.g., discord, rules">
+                        </div>
                         
                         <label for="auto-reply-message" style="display:block; margin-top:10px;">Bot Reply Message:</label>
                         <textarea id="auto-reply-message" rows="4" placeholder="Here is the link to our Discord server..."></textarea>

@@ -7,14 +7,40 @@ const copyBtn = document.getElementById('copy-btn');
 const pinnedToggle = document.getElementById('pinned-comment-toggle');
 const pinnedSettings = document.getElementById('pinned-comment-settings');
 const pinnedText = document.getElementById('pinned-comment-text');
-const pinnedLock = document.getElementById('pinned-comment-lock'); // NEW
+const pinnedLock = document.getElementById('pinned-comment-lock');
+
+// User Filter Elements
+const ageToggle = document.getElementById('age-filter-toggle');
+const ageSettings = document.getElementById('age-filter-settings');
+const ageDays = document.getElementById('age-days');
+const ageAction = document.getElementById('age-action');
+
+const karmaToggle = document.getElementById('karma-filter-toggle');
+const karmaSettings = document.getElementById('karma-filter-settings');
+const karmaAmount = document.getElementById('karma-amount');
+const karmaAction = document.getElementById('karma-action');
 
 // 2. UI Toggle Logic
 function updateUI() {
+    // Pinned Comment
     if (pinnedToggle.checked) {
         pinnedSettings.classList.add('visible');
     } else {
         pinnedSettings.classList.remove('visible');
+    }
+
+    // Account Age
+    if (ageToggle.checked) {
+        ageSettings.classList.add('visible');
+    } else {
+        ageSettings.classList.remove('visible');
+    }
+
+    // Karma Filter
+    if (karmaToggle.checked) {
+        karmaSettings.classList.add('visible');
+    } else {
+        karmaSettings.classList.remove('visible');
     }
 }
 
@@ -32,11 +58,34 @@ function generateYAML() {
         yaml += `comment: |\n${indentedComment}\n`;
         yaml += `comment_stickied: true\n`;
         
-        // NEW: Only lock the comment if the user explicitly wants to
         if (pinnedLock.checked) {
             yaml += `comment_locked: true\n`;
         }
         
+        yaml += `---\n`;
+    }
+
+    // Rule: Account Age Filter
+    if (ageToggle.checked && ageDays.value > 0) {
+        hasRules = true;
+        yaml += `type: any\n`;
+        yaml += `author:\n`;
+        yaml += `    account_age: "< ${ageDays.value} days"\n`;
+        yaml += `    is_moderator: false\n`; // Crucial: prevents mod filtering
+        yaml += `action: ${ageAction.value}\n`;
+        yaml += `action_reason: "Account is younger than ${ageDays.value} days"\n`;
+        yaml += `---\n`;
+    }
+
+    // Rule: Low Karma Filter
+    if (karmaToggle.checked && karmaAmount.value !== "") {
+        hasRules = true;
+        yaml += `type: any\n`;
+        yaml += `author:\n`;
+        yaml += `    combined_karma: "< ${karmaAmount.value}"\n`;
+        yaml += `    is_moderator: false\n`;
+        yaml += `action: ${karmaAction.value}\n`;
+        yaml += `action_reason: "User has less than ${karmaAmount.value} combined karma"\n`;
         yaml += `---\n`;
     }
 

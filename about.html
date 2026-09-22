@@ -23,15 +23,19 @@
                 <a href="https://itsnovrix.github.io/Automod-Generator/about.html" class="nav-item">About</a>
                 <a href="https://itsnovrix.github.io/Automod-Generator/faq.html" class="nav-item">F.A.Q.</a>
                 <a href="https://itsnovrix.github.io/Automod-Generator/history.html" class="nav-item">Automod History</a>
-                <a href="#" class="nav-item">Contact</a>
                 <a href="#" class="nav-item">GitHub</a>
+                <a href="#" class="nav-item">Contact</a>
             </div>
             <div class="nav-right">
                 <button class="theme-toggle">☾</button>
-                <a href="https://www.reddit.com/r/NovrixApps" class="nav-btn primary">Join the Subreddit</a>
+                <!-- Hamburger Button -->
+                <button class="hamburger-btn" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
-    </nav>
 
     <!-- Header Section -->
     <header class="section grid-bg" style="padding: 3rem 0;">
@@ -96,8 +100,8 @@
     <footer class="footer">
         <div class="footer-inner">
             <div class="footer-col">
-                <div class="footer-brand">ItsNovrix <em>Projects</em></div>
-                <p class="footer-tagline">Building modern open-source solutions for communities.</p>
+                <div class="footer-brand">AutoMod <em>Rule Builder</em></div>
+                <p class="footer-tagline">Preserving and modernizing essential Reddit moderation tools.</p>
             </div>
             <div class="footer-col" style="text-align: right;">
                 <p style="color: var(--tx2); font-size: 0.875rem;">Created by ItsNovrix</p>
@@ -126,6 +130,17 @@
                 toggle.textContent = '☾';
             }
         });
+
+        // Mobile Menu Toggle
+const hamburgerBtn = document.querySelector('.hamburger-btn');
+const mobileDrawer = document.querySelector('.mobile-nav-drawer');
+
+if (hamburgerBtn && mobileDrawer) {
+    hamburgerBtn.addEventListener('click', () => {
+        mobileDrawer.classList.toggle('open');
+        hamburgerBtn.classList.toggle('open');
+    });
+}
     </script>
 </body>
 </html>

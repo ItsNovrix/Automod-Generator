@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Reddit Automod Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        /* Base Variables & Theming */
+        :root {
+            --bg: #0f1115;
+            --surface: #1a1d24;
+            --surface-hover: #242832;
+            --tx1: #f3f4f6;
+            --tx2: #9ca3af;
+            --orange: #ef4444; 
+            --orange-hover: #dc2626;
+            --line: #2d313a;
+            --radius: 8px;
+            --font-sans: 'DM Sans', sans-serif;
+            --font-serif: 'Instrument Serif', serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f9fafb;
+            --surface: #ffffff;
+            --surface-hover: #f3f4f6;
+            --tx1: #111827;
+            --tx2: #4b5563;
+            --orange: #ef4444;
+            --line: #e5e7eb;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg);
+            color: var(--tx1);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navigation */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(var(--bg), 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .nav-logo-mark {
+            color: var(--orange);
+            font-size: 1.5rem;
+        }
+
+        .nav-center {
+            display: none;
+            gap: 2rem;
+        }
+
+        @media(min-width: 768px) { .nav-center { display: flex; } }
+
+        .nav-item {
+            color: var(--tx2);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-item:hover, .nav-item[href="#"] {
+            color: var(--tx1);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--tx1);
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--surface);
+        }
+
+        .nav-btn.primary {
+            background-color: var(--orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-btn.primary:hover {
+            background-color: var(--orange-hover);
+        }
+
+        /* Header Section */
+        .section { padding: 5rem 0; }
+        
+        .grid-bg {
+            background-image: linear-gradient(var(--line) 1px, transparent 1px),
+                              linear-gradient(90deg, var(--line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center top;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 99px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--tx2);
+            margin-bottom: 1.5rem;
+        }
+        
+        .badge-pill a { transition: color 0.2s; }
+        .badge-pill a:hover { color: var(--tx1); }
+
+        .heading {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .heading em {
+            color: var(--orange);
+            font-style: italic;
+        }
+
+        .subhead {
+            font-size: 1.125rem;
+            color: var(--tx2);
+            max-width: 600px;
+            margin-bottom: 1rem;
+        }
+
+        /* NEW: Code Card Styles */
+        .code-card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+            overflow: hidden;
+            scroll-margin-top: 100px; /* Helps anchor links not hide under sticky nav */
+        }
+
+        .code-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--line);
+            background: var(--surface-hover);
+        }
+
+        .code-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--tx1);
+            margin-bottom: 0.5rem;
+        }
+
+        .code-desc {
+            color: var(--tx2);
+            font-size: 1rem;
+        }
+
+        .code-body {
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        pre {
+            background: var(--bg);
+            border: 1px solid var(--line);
+            padding: 1.5rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            color: var(--tx1);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 2.25rem;
+            right: 2.5rem;
+            background: var(--surface);
+            color: var(--tx2);
+            border: 1px solid var(--line);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--orange);
+            color: white;
+            border-color: var(--orange);
+        }
+
+        .copy-btn.copied {
+            background: #22c997; /* Success green */
+            color: white;
+            border-color: #22c997;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--line);
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        @media(min-width: 768px) { .footer-inner { grid-template-columns: 2fr 1fr 1fr; } }
+
+        .footer-brand {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand em { color: var(--orange); font-style: normal; }
+        .footer-tagline { color: var(--tx2); font-size: 0.875rem; }
+        .footer-col h5 { margin-bottom: 1rem; font-size: 1rem; }
+        .footer-links { display: flex; flex-direction: column; gap: 0.5rem; }
+        .footer-links a { color: var(--tx2); font-size: 0.875rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--tx1); }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding: 2rem 1.5rem 0;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--tx2);
+        }
+
+        .footer-badges { display: flex; gap: 1rem; }
+        .footer-badge { padding: 0.25rem 0.5rem; border: 1px solid var(--line); border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-mark">☭</div>
+                ItsNovrix
+            </a>
+            <div class="nav-center">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="https://itsnovrix.github.io/Reddit-Automod/about.html" class="nav-item">About</a>
+                <a href="https://itsnovrix.github.io/Reddit-Automod/faq.html" class="nav-item">F.A.Q.</a>
+                <a href="https://itsnovrix.github.io/Reddit-Automod/history.html" class="nav-item">Reddit Automod History</a>
+                <a href="#" class="nav-item">Contact</a>
+                <a href="#" class="nav-item">GitHub</a>
+                <a href="#" class="nav-item">Contact</a>
+            </div>
+            <div class="nav-right">
+                <button class="theme-toggle">☾</button>
+                <a href="https://www.reddit.com/r/NovrixApps" class="nav-btn primary">Join the Subreddit</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="section grid-bg" style="padding-bottom: 2rem;">
+        <div class="container" style="text-align: center;">
+            <span class="badge-pill">
+                <a href="index.html">← Back to Generator</a>
+            </span>
+            <h1 class="heading">About <em>this</em> Site</h1>
+            <p class="subhead" style="margin-left: auto; margin-right: auto;">
+                Essential AutoModerator rules to keep spam, trolls, and rule-breaking content out of your community.
+            </p>
+        </div>
+    </header>
+
+    <main class="section" style="padding-top: 2rem;">
+        <div class="container">
+            
+            <!-- CODE CARD: AGE FILTER -->
+            <div class="code-card" id="age-filter">
+                <div class="code-header">
+                    <h2 class="code-title">Mass Edit Filter</h2>
+                    <p class="code-desc">Automatically removes content that has been edited using mass edit tools.</p>
+                </div>
+                <div class="code-body">
+                    <button class="copy-btn">Copy</button>
+<pre><code>---
+#  Automatically remove mass edited content
+    type: any
+    body+url(includes): ['redact.dev', 'codepen.io/j0be', 'github.com/j0be', 'codepen.io/pkolyvas', 'the-federation.info']
+    is_edited: true
+    action: remove
+    action_reason: Mass Edited Content | [{{match}}]
+---</code></pre>
+                </div>
+            </div>
+
+            <!-- CODE CARD: AGE FILTER -->
+            <div class="code-card" id="age-filter">
+                <div class="code-header">
+                    <h2 class="code-title">Account Age Filter</h2>
+                    <p class="code-desc">Automatically removes posts and comments from accounts newer than 7 days, sending a modmail alert.</p>
+                </div>
+                <div class="code-body">
+                    <button class="copy-btn">Copy</button>
+<pre><code>---
+# Remove content from accounts newer than 7 days
+author:
+    account_age: "< 7 days"
+action: remove
+action_reason: "Account is too new (Spam Prevention)"
+modmail_subject: "New Account Alert"
+modmail: |
+    A post/comment by /u/{{author}} was removed because their account is younger than 7 days.
+    
+    Link: {{permalink}}
+---</code></pre>
+                </div>
+            </div>
+
+            <!-- CODE CARD: KARMA FILTER -->
+            <div class="code-card" id="karma-filter">
+                <div class="code-header">
+                    <h2 class="code-title">Low Karma Filter</h2>
+                    <p class="code-desc">Filters content to the modqueue for review if the user has less than 50 combined karma.</p>
+                </div>
+                <div class="code-body">
+                    <button class="copy-btn">Copy</button>
+<pre><code>---
+# Filter low karma users to modqueue
+author:
+    combined_karma: "< 50"
+action: filter
+action_reason: "Low Karma User (Review Required)"
+---</code></pre>
+                </div>
+            </div>
+
+            <!-- CODE CARD: PROFANITY FILTER -->
+            <div class="code-card" id="profanity-filter">
+                <div class="code-header">
+                    <h2 class="code-title">Basic Profanity Filter</h2>
+                    <p class="code-desc">Checks both titles and bodies for a customizable list of severe profanity and filters them for review.</p>
+                </div>
+                <div class="code-body">
+                    <button class="copy-btn">Copy</button>
+<pre><code>---
+# Filter offensive terms
+    type: any
+    title+body (includes): ["African IQ", "all lives matter", "ameri(turd|cunt|[phf]+[eoia]+g+([ieao]+[tryie]+)?)[sz]*", "anti(\\s|-)?white", "ape\\W?fricans?", "bat\\W?soup", "black IQ", "blacks", "blue lives matter", "bundle of (billets|sticks|wood)", "camel\\W?fuc?kers?", "chimp(ire)?s?", "china\\W?m[ae]ns?", "chinese virus", "china boy", "ch[io]n[gk]s?", "coal burner", "coalie", "coons?(y|i?e?s?|er)?", "coontown", "crackers?", "dark(e?ys?|ies?)", "(diaper|dot|rag|towel)\\W?heads?", "(fuck|fuk) (black|white|brown|dark|african) people", "goat\\W?fuckers?", "groids?", "happy\\W?merchants?", "high\\s?yellows?", "jungle\\W?bunn?(ie|y)?s?", "kiggers", "kkk", "klan", "mignorants?", "mongoloids?", "moon\\W?crickets?", "(shit|mud)\\W?(child(ren)?|skin)s?", "muslimes?", "mu(zz|ss)ie(s)?", "negroe?s?", "nibba", "n[aeiouy]gg?[eu]r", "nig\\W?town", "nuffin", "n-word", "pakis?", "pike?(y|ie)?s?", "(p[o0]rch|sand)\\s?nigg?(er|r|a|let)?s?", "(p[0o]rch|sand)\\W?m[0o]nk(ey|ie|y)s?", "put[o0] gringo", "r/hateblackpeople", "religion of (pieces|piss)", "soy\\W?boys?", "spear\\s?chuckers?", "spi(c|k|ck|g|gott?(ie|y))s?", "still racist", "tarbab(y|ie)s?", "white genocide", "white lives matter", "white power", "whiterights?", "beaner", "camel jockey", "ching chong", "coon", "coonass", "coon-ass", "dyke", "fudgepacker", "gook", "homo", "honky", "jigaboo", "jiggaboo", "kike", "kyke", "kraut", "niglet", "nignog", "nig-nog", "nigger", "retard", "retarded", "sand nigger", "sheeny", "shylock", "slut", "twink", "wetback", "wet-back", "whore", "zipperhead"]
+    ~title+body+url: ["neck", "nice", "nick", "nic", "neg", "auckland", "aukland"]
+    action: filter
+    action_reason: Possible offensive term detected: | [{{match}}]
+---
+
+    title+body (regex): ["\b(sand\\s?)?[nŃ][ei!1*|lîį!][bcgkq69ß&]+([ageru34@*ë]+[rsz]*)?\b", "eat (cat|dog|bat)s?", "japs?", "kkk", "klan", "n[8ïī!jìîí¡i][69gkq][69gkq]?[a@q]", "n[8ïī!jìîí¡i][69gkq][69gkq]?[e3]?(let|r|town|Я)?[5sz]?", "n[1!i]gs?-?", "n[i!j1e]+gg?(rs?|ett?e?s?|lets?|ress?e?s?|r[a0oe]s?|[ie@ao0!]rs?|r[o0]ids?|ab[o0]s?|erest)", "n[i1][gkq69][gkq69]?([e3]r)?(n[o0]g|l[e3]t|r[e3][s5][s5])?([e3]?[s5])?", "n ?word", "nigg?(er|r|r?a|lett?)s?z?", "nigg?[aeoi]s?", "nigg?s?", "88", "aryan", "f[üu][3e]?hrer", "gass? the", "hail h", "heil", "hh", "hitler", "holo\\W?hoaxe?s?", "juden?", "jws", "k[iy]kes?", "mein kr?am[phf]", "nazis?", "schmutz", "shekel", "sieg", "vult", "zyklon", "(2|two)\\s?genders", "abomination", "antifas?", "average IQ", "beetusbehemoths?", "boot\\W?lips?", "child sex", "christ\\W?killers?", "cock\\W?suckers?", "cunts?y?", "d(i|y)ke(s)?", "f[a@]g(g?[eo0i]t|s)?", "(f|ph)[a@]?[g69q][g69q]?([e0aio]t?)?t?(ed|ie|y)?s?t?", "faggish", "faggit", "fat\\W?(asse?|fuck)?s?", "fatt(ie|y)s?", "femi\\W?nazis?", "fuck\\W?boys?", "gae", "ghey", "(re|fuck|jerk|lib|republi)?tard(s|ed(ly)?)?", "lady\\W?boys?", "lesbos?", "mental(ly)?\\sill(ness)?", "mentally handicapped", "midget", "obeasts?", "pedosexual", "queer\\Wbags?", "she[- _]?male[sz]*", "shit\\W?(bag|dick|lord)s?", "siss(y|ie)", "SLGB[TS]S?", "sodomite", "spastic(s|ated)?", "spic", "spick", "superphobi?(c|a|e)s?", "super ?(strai(gh)?t|gay|lesbian|bi|(bi)?sexual)s?", "terf", "tran(?!s)n?(y|ie)?[sz]?\\b", "(you|you're|your) (are|look)? (fat|obese)", "You will never be a (real )?(woman|man)", "ywnba(r)?(m|w)"]
+    ~title+body+url: ["neck", "nice", "nick", "nic", "neg", "auckland", "aukland"]
+    action: filter
+    action_reason: Possible offensive term detected | [{{match}}]
+---</code></pre>
+                </div>
+            </div>
+            
+            <!-- CODE CARD: POLITICAL FILTER -->
+            <div class="code-card" id="political-filter">
+                <div class="code-header">
+                    <h2 class="code-title">Sexual Harassment Filter</h2>
+                    <p class="code-desc">Automatically filters likely sexual harassment.</p>
+                </div>
+                <div class="code-body">
+                    <button class="copy-btn">Copy</button>
+<pre><code>---
+# Filter sexual harassment
+    type: any
+    title+body (regex): ["3 ?(sum|some)", "anals?", "are\\W?you\\W?single", "ass", "back\\W?door\\W?sluts?", "ball torture", "bea?stiality", "(blow|hand)\\s*jobs?", "boners?", "Brazzers", "butt\\W?(munch|holes?|hurt|sex)", "butt\\W?plugs?", "[ck]+[ou]+m+e?.?dump(ster)?[sz]*", "cumm?\\W?(s|ing|ies|ed|shots?)?", "deez nuts", "dicks?", "dick\\W?girls?", "down bad", "ejeculate(s|d)?", "erections?", "fapp?(s|ing|er|ed)", "fist(ing|ed)?s?", "flesh\\W?lights?", "fu(ck|xx|cx|xk)able", "glory\\W?holes?", "hoes?", "horny", "i'?d smash", "jack(ing|in')? off", "jail\\W?bait", "jerk(s|ing)?\\W?offs?", "legal teens?", "lingerie", "masturbat", "mast[ue]rbat(es?|ing|ion)?", "[mdg]ilfs?y?", "necrophili?ac?s?", "no(-| )?nut(-| )?november", "NNN", "nudes?", "p[0o*]rno?s?", "pornhub", "pornography", "pussy", "rape(s|d|y)?", "rapists?", "ray\\W?ping", "rub(s|bing)?\\W?(you|one|1)?\\W?off", "semen", "three(some|sum)", "tidd(y|ie)?s?", "t[1i]tt?(a|y|ie)?s?", "unzip", "wank(er|ing)?s?", "whores?d?", "zoophil(e|ia)"]
+    action: filter
+    action_reason: Possible sexual harassment: [{{match}}]
+---</code></pre>
+                </div>
+            </div>
+
+            <!-- CODE CARD: POLITICAL FILTER -->
+            <div class="code-card" id="political-filter">
+                <div class="code-header">
+                    <h2 class="code-title">Political Terms Filter</h2>
+                    <p class="code-desc">Useful for non-political subreddits. Catches common political keywords to ensure users aren't breaking 'No Politics' rules.</p>
+                </div>
+                <div class="code-body">
+                    <button class="copy-btn">Copy</button>
+<pre><code>---
+# Filter political discussion
+title+body (regex, includes): ['trump', 'biden', 'democrat', 'republican', 'election']
+action: filter
+action_reason: "Possible Political Content: [{{match}}]"
+---</code></pre>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <div class="footer-brand">Reddit <em>Automod Config</em> Database</div>
+                <p class="footer-tagline">A collection of Devvit apps and projects created by ItsNovrix.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Links</h5>
+                <div class="footer-links">
+                    <a href="https://royalpgytpc.github.io/MemeCurrencyBot/">Meme Currency Website</a>
+                    <a href="https://discord.gg/Sys5nNmfE7">Official Discord</a>
+                    <a href="eula.html">Legal / EULA</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Community</h5>
+                <div class="footer-links">
+                    <a href="#">Highlights</a>
+                    <a href="#">Applications</a>
+                    <a href="#">V5 Tester</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copy">© 2026 u/ItsNovrix</div>
+            <div class="footer-badges">
+                <span class="footer-badge founded">Est. September 2026</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Logic
+        const toggle = document.querySelector('.theme-toggle');
+        toggle.addEventListener('click', () => {
+            const current = document.body.classList.contains('theme-dark') ? 'dark' : 'light';
+            if(current === 'dark') {
+                document.body.classList.replace('theme-dark', 'theme-light');
+                document.documentElement.setAttribute('data-theme', 'light');
+                toggle.textContent = '☀';
+            } else {
+                document.body.classList.replace('theme-light', 'theme-dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                toggle.textContent = '☾';
+            }
+        });
+        document.body.classList.add('theme-dark');
+
+        // Copy to Clipboard Logic
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Find the code block within the same code-body container
+                const codeBlock = button.parentElement.querySelector('code');
+                const textToCopy = codeBlock.innerText;
+
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // Visual feedback
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    button.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

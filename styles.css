@@ -131,6 +131,79 @@ a { color: inherit; text-decoration: none; }
     color: var(--tx1);
 }
 
+/* Mobile Nav */
+
+.hamburger-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 12px;
+    z-index: 101;
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--tx1);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+@media (min-width: 768px) {
+    .hamburger-btn {
+        display: none;
+    }
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Mobile Drawer */
+.mobile-nav-drawer {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    padding: 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-nav-drawer.open {
+    display: flex;
+}
+
+/* Drawer links */
+.mobile-nav-drawer .nav-item {
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.mobile-nav-drawer .nav-item:last-of-type {
+    border-bottom: none;
+}
+
+.mobile-nav-drawer .mobile-join-btn {
+    text-align: center;
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+}
+
 /* Header Section */
 .section { padding: 4rem 0; }
 
@@ -357,7 +430,6 @@ pre {
     color: var(--tx2);
 }
 
-/* Reusable class for 2-column content (replaces inline styles) */
 .content-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -365,17 +437,15 @@ pre {
 }
 
 @media(max-width: 768px) {
-    /* Stack the main generator layout */
+    
     .generator-grid {
         grid-template-columns: 1fr;
     }
-    
-    /* Stack the About/FAQ columns */
+
     .content-grid-2 {
         grid-template-columns: 1fr;
     }
 
-    /* Stack the footer elements so they don't force the screen wide */
     .footer-inner, .footer-bottom {
         flex-direction: column;
         text-align: center;
@@ -387,7 +457,7 @@ pre {
     }
 }
 
-/* Modern Sliding Toggle Switches */
+/* Sliding Toggle Switches */
 .input-group {
     display: flex;
     align-items: center;
@@ -396,7 +466,6 @@ pre {
     user-select: none;
 }
 
-/* Hide the ugly native checkbox */
 .input-group input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
@@ -413,7 +482,6 @@ pre {
     border: 1px solid var(--line);
 }
 
-/* The sliding circular knob */
 .input-group input[type="checkbox"]::before {
     content: '';
     position: absolute;
@@ -427,12 +495,10 @@ pre {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Hover state for the track */
 .input-group input[type="checkbox"]:hover {
     border-color: var(--orange);
 }
 
-/* Checked state: turns theme orange and slides the knob over */
 .input-group input[type="checkbox"]:checked {
     background-color: var(--orange);
     border-color: var(--orange);
@@ -444,78 +510,4 @@ pre {
 
 .generator-grid > * {
     min-width: 0;
-}
-
-/* =========================================
-   MOBILE NAVIGATION & HAMBURGER MENU
-   ========================================= */
-
-/* Hamburger Button */
-.hamburger-btn {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 24px;
-    height: 18px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin-left: 12px;
-    z-index: 101;
-}
-
-.hamburger-btn span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: var(--tx1);
-    transition: all 0.3s ease;
-    border-radius: 2px;
-}
-
-/* Hide hamburger on desktop */
-@media (min-width: 768px) {
-    .hamburger-btn {
-        display: none;
-    }
-}
-
-/* Mobile Drawer Styles */
-.mobile-nav-drawer {
-    display: none; /* Hidden by default */
-    position: absolute;
-    top: 100%; /* Drops right below the nav bar */
-    left: 0;
-    width: 100%;
-    background: var(--surface);
-    border-bottom: 1px solid var(--line);
-    padding: 1.5rem;
-    flex-direction: column;
-    gap: 1rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-/* When the drawer is toggled open via JS */
-.mobile-nav-drawer.open {
-    display: flex;
-}
-
-/* Drawer links */
-.mobile-nav-drawer .nav-item {
-    font-size: 1.1rem;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--line);
-}
-
-/* Remove bottom border from the last link so the button sits clean */
-.mobile-nav-drawer .nav-item:last-of-type {
-    border-bottom: none;
-}
-
-/* Make the relocated button look good inside the drawer */
-.mobile-nav-drawer .mobile-join-btn {
-    text-align: center;
-    margin-top: 0.5rem;
-    padding: 0.75rem;
 }

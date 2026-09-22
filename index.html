@@ -1,152 +1,209 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reddit AutoMod Generator</title>
+    <title>Reddit AutoMod Rule Generator | ItsNovrix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <header>
-        <h1>AutoMod Rule Generator</h1>
-        <p>Select your rules below to generate the YAML configuration for your subreddit.</p>
-    </header>
-    
-    <main class="container">
-        <!-- Left Column: The Form Controls -->
-        <section class="controls">
-            <form id="automod-form">
-                
-                <fieldset>
-                    <legend>Essential Rules</legend>
-                    
-                    <div class="input-group">
-                        <input type="checkbox" id="pinned-comment-toggle">
-                        <label for="pinned-comment-toggle">Add a pinned welcome comment to all posts</label>
-                    </div>
-                    
-                    <!-- Hidden by default via CSS; toggled by JS -->
-                    <div class="sub-input" id="pinned-comment-settings">
-                        <label for="pinned-comment-text">Comment Text:</label>
-                        <textarea id="pinned-comment-text" rows="4">Thank you for posting on r/{{subreddit}}!</textarea>
-                        
-                        <!-- Lock Toggle -->
-                        <div class="input-group" style="margin-top: 10px;">
-                            <input type="checkbox" id="pinned-comment-lock">
-                            <label for="pinned-comment-lock">Lock this comment so users cannot reply to it</label>
-                        </div>
-                    </div>
-                </fieldset>
+<body class="theme-dark">
 
-                <!-- User Restrictions Fieldset -->
-                <fieldset>
-                    <legend>User Restrictions</legend>
-
-                    <!-- Account Age Filter -->
-                    <div class="input-group">
-                        <input type="checkbox" id="age-filter-toggle">
-                        <label for="age-filter-toggle">Filter posts/comments based on account age</label>
-                    </div>
-                    <div class="sub-input" id="age-filter-settings">
-                        <label for="age-target">Target:</label>
-                        <select id="age-target">
-                            <option value="any">Posts and Comments</option>
-                            <option value="submission">Posts Only</option>
-                            <option value="comment">Comments Only</option>
-                        </select>
-
-                        <label for="age-days" style="display:block; margin-top:10px;">Minimum Account Age (in days):</label>
-                        <input type="number" id="age-days" value="7" min="1">
-                        
-                        <label for="age-action" style="display:block; margin-top:10px;">Action to take:</label>
-                        <select id="age-action">
-                            <option value="filter">Filter (Send to Modqueue)</option>
-                            <option value="remove">Remove (Delete immediately)</option>
-                        </select>
-                    </div>
-
-                    <hr style="border: 0; border-top: 1px solid var(--border); margin: 15px 0;">
-
-                    <!-- Advanced Karma Filter -->
-                    <div class="input-group">
-                        <input type="checkbox" id="karma-filter-toggle">
-                        <label for="karma-filter-toggle">Filter posts/comments based on user karma</label>
-                    </div>
-                    <div class="sub-input" id="karma-filter-settings">
-                        <label for="karma-target">Target:</label>
-                        <select id="karma-target">
-                            <option value="any">Posts and Comments</option>
-                            <option value="submission">Posts Only</option>
-                            <option value="comment">Comments Only</option>
-                        </select>
-
-                        <label for="karma-amount" style="display:block; margin-top:10px;">Minimum Karma Required:</label>
-                        <input type="number" id="karma-amount" value="50">
-
-                        <label for="karma-type" style="display:block; margin-top:10px;">Karma Type to Check:</label>
-                        <select id="karma-type">
-                            <option value="combined_karma">Sitewide - Combined</option>
-                            <option value="post_karma">Sitewide - Post Karma Only</option>
-                            <option value="comment_karma">Sitewide - Comment Karma Only</option>
-                            <option value="combined_subreddit_karma">This Subreddit - Combined</option>
-                            <option value="post_subreddit_karma">This Subreddit - Post Karma Only</option>
-                            <option value="comment_subreddit_karma">This Subreddit - Comment Karma Only</option>
-                        </select>
-                        
-                        <label for="karma-action" style="display:block; margin-top:10px;">Action to take:</label>
-                        <select id="karma-action">
-                            <option value="filter">Filter (Send to Modqueue)</option>
-                            <option value="remove">Remove (Delete immediately)</option>
-                        </select>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Automated Responses</legend>
-
-                    <!-- Auto-Reply by Keyword -->
-                    <div class="input-group">
-                        <input type="checkbox" id="auto-reply-toggle">
-                        <label for="auto-reply-toggle">Auto-reply to specific keywords</label>
-                    </div>
-                    
-                    <div class="sub-input" id="auto-reply-settings">
-                        <label for="auto-reply-target">Where to look for keywords:</label>
-                        <select id="auto-reply-target">
-                            <option value="any">Posts and Comments</option>
-                            <option value="submission">Posts Only</option>
-                            <option value="comment">Comments Only</option>
-                        </select>
-
-                        <label for="auto-reply-keyword-input" style="display:block; margin-top:10px;">Trigger Keywords (Type and press Enter):</label>
-                        <div class="tag-input-container" id="auto-reply-tag-container">
-                            <input type="text" id="auto-reply-keyword-input" placeholder="e.g., discord, rules">
-                        </div>
-                        
-                        <label for="auto-reply-message" style="display:block; margin-top:10px;">Bot Reply Message:</label>
-                        <textarea id="auto-reply-message" rows="4" placeholder="Here is the link to our Discord server..."></textarea>
-                        
-                        <!-- Lock Toggle for the bot's reply -->
-                        <div class="input-group" style="margin-top: 10px;">
-                            <input type="checkbox" id="auto-reply-lock">
-                            <label for="auto-reply-lock">Lock the bot's comment so users cannot reply to it</label>
-                        </div>
-                    </div>
-                </fieldset>
-                
-            </form>
-        </section>
-
-        <!-- Right Column: The Live Output -->
-        <section class="output-panel">
-            <div class="sticky-container">
-                <h2>Generated YAML</h2>
-                <pre><code id="yaml-output"># Select a rule on the left to generate code...</code></pre>
-                <button id="copy-btn">Copy Rules Code</button>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-mark">☭</div>
+                ItsNovrix
+            </a>
+            <div class="nav-right">
+                <button class="theme-toggle">☾</button>
+                <a href="https://www.reddit.com/r/NovrixApps" class="nav-btn primary">Join the Subreddit</a>
             </div>
-        </section>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="section grid-bg" style="padding: 3rem 0;">
+        <div class="container" style="text-align: center;">
+            <span class="badge-pill">Reddit Tools</span>
+            <h1 class="heading">AutoMod <em>Rule Generator</em></h1>
+            <p class="subhead" style="margin-left: auto; margin-right: auto;">
+                Configure rules visually and generate clean, production-ready YAML configurations for your subreddit instantly.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Generator Content -->
+    <main class="container">
+        <div class="generator-grid">
+            
+            <!-- Left Column: Controls Form -->
+            <section class="controls">
+                <form id="automod-form">
+                    
+                    <!-- Essential Rules -->
+                    <fieldset>
+                        <legend>Essential Rules</legend>
+                        <div class="input-group">
+                            <input type="checkbox" id="pinned-comment-toggle">
+                            <label for="pinned-comment-toggle">Add a pinned welcome comment to all posts</label>
+                        </div>
+                        <div class="sub-input" id="pinned-comment-settings">
+                            <label for="pinned-comment-text">Comment Text:</label>
+                            <textarea id="pinned-comment-text" rows="4">Thank you for posting on r/{{subreddit}}!</textarea>
+                            
+                            <div class="input-group" style="margin-top: 10px;">
+                                <input type="checkbox" id="pinned-comment-lock">
+                                <label for="pinned-comment-lock">Lock this comment so users cannot reply to it</label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- User Restrictions -->
+                    <fieldset>
+                        <legend>User Restrictions</legend>
+
+                        <div class="input-group">
+                            <input type="checkbox" id="age-filter-toggle">
+                            <label for="age-filter-toggle">Filter posts/comments based on account age</label>
+                        </div>
+                        <div class="sub-input" id="age-filter-settings">
+                            <label for="age-target">Target:</label>
+                            <select id="age-target">
+                                <option value="any">Posts and Comments</option>
+                                <option value="submission">Posts Only</option>
+                                <option value="comment">Comments Only</option>
+                            </select>
+
+                            <label for="age-days" style="display:block; margin-top:10px;">Minimum Account Age (in days):</label>
+                            <input type="number" id="age-days" value="7" min="1">
+                            
+                            <label for="age-action" style="display:block; margin-top:10px;">Action to take:</label>
+                            <select id="age-action">
+                                <option value="filter">Filter (Send to Modqueue)</option>
+                                <option value="remove">Remove (Delete immediately)</option>
+                            </select>
+                        </div>
+
+                        <hr style="border: 0; border-top: 1px solid var(--line); margin: 15px 0;">
+
+                        <div class="input-group">
+                            <input type="checkbox" id="karma-filter-toggle">
+                            <label for="karma-filter-toggle">Filter posts/comments based on user karma</label>
+                        </div>
+                        <div class="sub-input" id="karma-filter-settings">
+                            <label for="karma-target">Target:</label>
+                            <select id="karma-target">
+                                <option value="any">Posts and Comments</option>
+                                <option value="submission">Posts Only</option>
+                                <option value="comment">Comments Only</option>
+                            </select>
+
+                            <label for="karma-amount" style="display:block; margin-top:10px;">Minimum Karma Required:</label>
+                            <input type="number" id="karma-amount" value="50">
+
+                            <label for="karma-type" style="display:block; margin-top:10px;">Karma Type to Check:</label>
+                            <select id="karma-type">
+                                <option value="combined_karma">Sitewide - Combined</option>
+                                <option value="post_karma">Sitewide - Post Karma Only</option>
+                                <option value="comment_karma">Sitewide - Comment Karma Only</option>
+                                <option value="combined_subreddit_karma">This Subreddit - Combined</option>
+                                <option value="post_subreddit_karma">This Subreddit - Post Karma Only</option>
+                                <option value="comment_subreddit_karma">This Subreddit - Comment Karma Only</option>
+                            </select>
+                            
+                            <label for="karma-action" style="display:block; margin-top:10px;">Action to take:</label>
+                            <select id="karma-action">
+                                <option value="filter">Filter (Send to Modqueue)</option>
+                                <option value="remove">Remove (Delete immediately)</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <!-- Automated Responses -->
+                    <fieldset>
+                        <legend>Automated Responses</legend>
+                        <div class="input-group">
+                            <input type="checkbox" id="auto-reply-toggle">
+                            <label for="auto-reply-toggle">Auto-reply to specific keywords</label>
+                        </div>
+                        
+                        <div class="sub-input" id="auto-reply-settings">
+                            <label for="auto-reply-target">Where to look for keywords:</label>
+                            <select id="auto-reply-target">
+                                <option value="any">Posts and Comments</option>
+                                <option value="submission">Posts Only</option>
+                                <option value="comment">Comments Only</option>
+                            </select>
+
+                            <label for="auto-reply-keyword-input" style="display:block; margin-top:10px;">Trigger Keywords (Type and press Enter):</label>
+                            <div class="tag-input-container" id="auto-reply-tag-container">
+                                <input type="text" id="auto-reply-keyword-input" placeholder="e.g., discord, rules">
+                            </div>
+                            
+                            <label for="auto-reply-message" style="display:block; margin-top:10px;">Bot Reply Message:</label>
+                            <textarea id="auto-reply-message" rows="4" placeholder="Here is the link to our Discord server..."></textarea>
+                            
+                            <div class="input-group" style="margin-top: 10px;">
+                                <input type="checkbox" id="auto-reply-lock">
+                                <label for="auto-reply-lock">Lock the bot's comment so users cannot reply to it</label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </form>
+            </section>
+
+            <!-- Right Column: Live Output Panel -->
+            <section class="output-panel">
+                <div class="sticky-container">
+                    <h2>Generated YAML</h2>
+                    <pre><code id="yaml-output"># Select a rule on the left to generate code...</code></pre>
+                    <button id="copy-btn">Copy Rules Code</button>
+                </div>
+            </section>
+
+        </div>
     </main>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <div class="footer-brand">AutoMod <em>Rule Generator</em></div>
+                <p class="footer-tagline">Preserving and modernizing essential Reddit moderation tools.</p>
+            </div>
+            <div class="footer-col" style="text-align: right;">
+                <p style="color: var(--tx2); font-size: 0.875rem;">Created by ItsNovrix</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copy">© 2026 u/ItsNovrix</div>
+            <div class="footer-badges">
+                <span class="footer-badge">BSD 3-Clause License</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Script Adaptation -->
+    <script>
+        const toggle = document.querySelector('.theme-toggle');
+        toggle.addEventListener('click', () => {
+            const current = document.body.classList.contains('theme-dark') ? 'dark' : 'light';
+            if(current === 'dark') {
+                document.body.classList.replace('theme-dark', 'theme-light');
+                document.documentElement.setAttribute('data-theme', 'light');
+                toggle.textContent = '☀';
+            } else {
+                document.body.classList.replace('theme-light', 'theme-dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                toggle.textContent = '☾';
+            }
+        });
+    </script>
     <script src="app.js"></script>
 </body>
 </html>

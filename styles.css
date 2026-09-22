@@ -357,9 +357,33 @@ pre {
     color: var(--tx2);
 }
 
+/* Reusable class for 2-column content (replaces inline styles) */
+.content-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
 @media(max-width: 768px) {
+    /* Stack the main generator layout */
     .generator-grid {
         grid-template-columns: 1fr;
+    }
+    
+    /* Stack the About/FAQ columns */
+    .content-grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stack the footer elements so they don't force the screen wide */
+    .footer-inner, .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    
+    .footer-col {
+        text-align: center !important;
     }
 }
 

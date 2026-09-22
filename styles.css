@@ -441,3 +441,7 @@ pre {
 .input-group input[type="checkbox"]:checked::before {
     transform: translateX(20px);
 }
+
+.generator-grid > * {
+    min-width: 0;
+}

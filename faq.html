@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | ItsNovrix</title>
+    <title>F.A.Q. | ItsNovrix</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -20,10 +20,9 @@
             </a>
             <div class="nav-center">
                 <a href="index.html" class="nav-item">Home</a>
-                <a href="https://itsnovrix.github.io/Automod-Generator/about.html" class="nav-item">About</a>
-                <a href="https://itsnovrix.github.io/Automod-Generator/faq.html" class="nav-item">F.A.Q.</a>
-                <a href="https://itsnovrix.github.io/Automod-Generator/history.html" class="nav-item">Automod History</a>
-                <a href="#" class="nav-item">Contact</a>
+                <a href="about.html" class="nav-item">About</a>
+                <a href="faq.html" class="nav-item">F.A.Q.</a>
+                <a href="history.html" class="nav-item">Automod History</a>
                 <a href="#" class="nav-item">GitHub</a>
                 <a href="#" class="nav-item">Contact</a>
             </div>
@@ -37,10 +36,10 @@
     <!-- Header Section -->
     <header class="section grid-bg" style="padding: 3rem 0;">
         <div class="container" style="text-align: center;">
-            <span class="badge-pill">Overview</span>
-            <h1 class="heading">About <em>This Project</em></h1>
+            <span class="badge-pill">Help Center</span>
+            <h1 class="heading">Frequently Asked <em>Questions</em></h1>
             <p class="subhead" style="margin-left: auto; margin-right: auto;">
-                A behind-the-scenes look at the tools, philosophy, and open-source mission driving these utilities.
+                Everything you need to know about Automod Generator.
             </p>
         </div>
     </header>
@@ -49,31 +48,50 @@
     <main class="container">
         <div style="display: grid; gap: 2rem; margin-bottom: 5rem;">
             
-            <!-- Main Info Card -->
+            <!-- FAQ Item 1 -->
             <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem;">
-                <h2 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 1rem;">Our Core Mission</h2>
-                <p style="color: var(--tx2); margin-bottom: 1rem;">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
+                <h2 style="font-family: var(--font-serif); font-size: 1.75rem; margin-bottom: 0.75rem;">What is Automod Generator?</h2>
                 <p style="color: var(--tx2);">
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Automod Generator is a free, open-source utility designed to make writing Reddit AutoMod configurations effortless. Instead of struggling with YAML syntax, spacing, and trial-and-error, you select the rules you want, and the generator builds clean, working code ready for you to copy and paste.
                 </p>
             </div>
 
-            <!-- Two Column Cards -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem;">
-                    <h3 style="font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 0.75rem;">Built for Moderators</h3>
-                    <p style="color: var(--tx2); font-size: 0.95rem;">
-                        Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.
-                    </p>
-                </div>
-                <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem;">
-                    <h3 style="font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 0.75rem;">Open Source & Secure</h3>
-                    <p style="color: var(--tx2); font-size: 0.95rem;">
-                        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci. Aenean nec lorem.
-                    </p>
-                </div>
+            <!-- FAQ Item 2 -->
+            <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem;">
+                <h2 style="font-family: var(--font-serif); font-size: 1.75rem; margin-bottom: 0.75rem;">Do I need to log in or connect my Reddit account?</h2>
+                <p style="color: var(--tx2);">
+                    <strong>Not at all.</strong> Account connection or integration is completely optional. You can use the generator anonymously, grab your code, and paste it straight into your subreddit's AutoMod page without handing over any permissions or data.
+                </p>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem;">
+                <h2 style="font-family: var(--font-serif); font-size: 1.75rem; margin-bottom: 0.75rem;">Is my subreddit data tracked or stored?</h2>
+                <p style="color: var(--tx2);">
+                    We don’t track you, run targeted ads, or store your configuration data. Because the project is fully open source, you can audit how the code handles everything yourself. Privacy and security are non-negotiable when you manage communities.
+                </p>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem;">
+                <h2 style="font-family: var(--font-serif); font-size: 1.75rem; margin-bottom: 0.75rem;">How do I apply the generated code to my subreddit?</h2>
+                <p style="color: var(--tx2); margin-bottom: 0.75rem;">
+                    Once you generate your rules on the site, follow these quick steps:
+                </p>
+                <ol style="color: var(--tx2); padding-left: 1.5rem; display: grid; gap: 0.5rem;">
+                    <li>Click the <strong>Copy</strong> button on the generated code block.</li>
+                    <li>Head over to your subreddit on desktop and go to your <strong>Mod Tools</strong>.</li>
+                    <li>Navigate to <strong>Automod</strong> under the moderation settings.</li>
+                    <li>Paste the code into your configuration file and hit <strong>Save</strong>.</li>
+                </ol>
+            </div>
+
+            <!-- FAQ Item 5 -->
+            <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem;">
+                <h2 style="font-family: var(--font-serif); font-size: 1.75rem; margin-bottom: 0.75rem;">Can I contribute or self-host this tool?</h2>
+                <p style="color: var(--tx2);">
+                    Yes! The project is open source. If you want to review the source code, suggest features, report bugs, or run your own instance, check out our repository linked on GitHub or stop by r/NovrixApps.
+                </p>
             </div>
 
         </div>

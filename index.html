@@ -230,6 +230,16 @@
                 toggle.textContent = '☾';
             }
         });
+
+        // Mobile Menu Toggle
+const hamburgerBtn = document.querySelector('.hamburger-btn');
+const mobileDrawer = document.querySelector('.mobile-nav-drawer');
+
+if (hamburgerBtn && mobileDrawer) {
+    hamburgerBtn.addEventListener('click', () => {
+        mobileDrawer.classList.toggle('open');
+    });
+}
     </script>
     <script src="app.js"></script>
 </body>

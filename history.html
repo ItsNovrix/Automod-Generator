@@ -1,4 +1,58 @@
-<!-- Header Section -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit AutoMod Rule Builder | ItsNovrix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-dark">
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-mark">⛊</div>
+                ItsNovrix
+            </a>
+            <div class="nav-center">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="https://itsnovrix.github.io/Automod-Generator/about.html" class="nav-item">About</a>
+                <a href="https://itsnovrix.github.io/Automod-Generator/faq.html" class="nav-item">F.A.Q.</a>
+                <a href="https://itsnovrix.github.io/Automod-Generator/history.html" class="nav-item">Automod History</a>
+                <a href="#" class="nav-item">GitHub</a>
+                <a href="#" class="nav-item">Contact</a>
+            </div>
+            <div class="nav-right">
+                <button class="theme-toggle">☾</button>
+                <!-- Hamburger Button -->
+                <button class="hamburger-btn" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div class="mobile-nav-drawer">
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="https://itsnovrix.github.io/Automod-Generator/about.html" class="nav-item">About</a>
+            <a href="https://itsnovrix.github.io/Automod-Generator/faq.html" class="nav-item">F.A.Q.</a>
+            <a href="https://itsnovrix.github.io/Automod-Generator/history.html" class="nav-item">Automod History</a>
+            <a href="#" class="nav-item">GitHub</a>
+            <a href="#" class="nav-item">Contact</a>
+            
+            <!-- Relocated Button -->
+            <a href="#" class="nav-btn primary mobile-join-btn">Donate</a>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <!-- Header Section -->
     <header class="section grid-bg" style="padding: 3rem 0;">
         <div class="container" style="text-align: center;">
             <span class="badge-pill">Project Lore</span>
@@ -41,3 +95,53 @@
             </div>
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <div class="footer-brand">AutoMod <em>Rule Builder</em></div>
+                <p class="footer-tagline">Preserving and modernizing essential Reddit moderation tools.</p>
+            </div>
+            <div class="footer-col" style="text-align: right;">
+                <p style="color: var(--tx2); font-size: 0.875rem;">Created by ItsNovrix</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copy">© 2026 u/ItsNovrix</div>
+            <div class="footer-badges">
+                <span class="footer-badge">BSD 3-Clause License</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const toggle = document.querySelector('.theme-toggle');
+        toggle.addEventListener('click', () => {
+            const current = document.body.classList.contains('theme-dark') ? 'dark' : 'light';
+            if(current === 'dark') {
+                document.body.classList.replace('theme-dark', 'theme-light');
+                document.documentElement.setAttribute('data-theme', 'light');
+                toggle.textContent = '☀';
+            } else {
+                document.body.classList.replace('theme-light', 'theme-dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                toggle.textContent = '☾';
+            }
+        });
+
+        // Mobile Menu Toggle
+const hamburgerBtn = document.querySelector('.hamburger-btn');
+const mobileDrawer = document.querySelector('.mobile-nav-drawer');
+
+if (hamburgerBtn && mobileDrawer) {
+    hamburgerBtn.addEventListener('click', () => {
+        mobileDrawer.classList.toggle('open');
+        hamburgerBtn.classList.toggle('open');
+    });
+}
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>

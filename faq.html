@@ -20,16 +20,34 @@
             </a>
             <div class="nav-center">
                 <a href="index.html" class="nav-item">Home</a>
-                <a href="about.html" class="nav-item">About</a>
-                <a href="faq.html" class="nav-item">F.A.Q.</a>
-                <a href="history.html" class="nav-item">Automod History</a>
+                <a href="https://itsnovrix.github.io/Automod-Generator/about.html" class="nav-item">About</a>
+                <a href="https://itsnovrix.github.io/Automod-Generator/faq.html" class="nav-item">F.A.Q.</a>
+                <a href="https://itsnovrix.github.io/Automod-Generator/history.html" class="nav-item">Automod History</a>
                 <a href="#" class="nav-item">GitHub</a>
                 <a href="#" class="nav-item">Contact</a>
             </div>
             <div class="nav-right">
                 <button class="theme-toggle">☾</button>
-                <a href="https://www.reddit.com/r/NovrixApps" class="nav-btn primary">Join the Subreddit</a>
+                <!-- Hamburger Button -->
+                <button class="hamburger-btn" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div class="mobile-nav-drawer">
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="https://itsnovrix.github.io/Automod-Generator/about.html" class="nav-item">About</a>
+            <a href="https://itsnovrix.github.io/Automod-Generator/faq.html" class="nav-item">F.A.Q.</a>
+            <a href="https://itsnovrix.github.io/Automod-Generator/history.html" class="nav-item">Automod History</a>
+            <a href="#" class="nav-item">GitHub</a>
+            <a href="#" class="nav-item">Contact</a>
+            
+            <!-- Relocated Button -->
+            <a href="#" class="nav-btn primary mobile-join-btn">Donate</a>
         </div>
     </nav>
 
@@ -131,6 +149,17 @@
                 toggle.textContent = '☾';
             }
         });
+
+        // Mobile Menu Toggle
+const hamburgerBtn = document.querySelector('.hamburger-btn');
+const mobileDrawer = document.querySelector('.mobile-nav-drawer');
+
+if (hamburgerBtn && mobileDrawer) {
+    hamburgerBtn.addEventListener('click', () => {
+        mobileDrawer.classList.toggle('open');
+        hamburgerBtn.classList.toggle('open');
+    });
+}
     </script>
 </body>
 </html>

@@ -337,3 +337,58 @@ pre {
         grid-template-columns: 1fr;
     }
 }
+
+/* Modern Sliding Toggle Switches */
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Hide the ugly native checkbox */
+.input-group input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 44px;
+    height: 24px;
+    background: var(--line);
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    outline: none;
+    margin: 0;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+}
+
+/* The sliding circular knob */
+.input-group input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    background: white;
+    transition: transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover state for the track */
+.input-group input[type="checkbox"]:hover {
+    border-color: var(--orange);
+}
+
+/* Checked state: turns theme orange and slides the knob over */
+.input-group input[type="checkbox"]:checked {
+    background-color: var(--orange);
+    border-color: var(--orange);
+}
+
+.input-group input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
+}

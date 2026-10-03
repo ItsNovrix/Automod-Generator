@@ -39,6 +39,13 @@ const editedPost = document.getElementById('edited-post');
 const editedComment = document.getElementById('edited-comment');
 const editedAction = document.getElementById('edited-action');
 
+// Mass Edit Filter Elements
+const massEditToggle = document.getElementById('mass-edit-toggle');
+const massEditSettings = document.getElementById('mass-edit-settings');
+const massEditPost = document.getElementById('mass-edit-post');
+const massEditComment = document.getElementById('mass-edit-comment');
+const massEditAction = document.getElementById('mass-edit-action');
+
 // Auto-Reply Elements
 const autoReplyToggle = document.getElementById('auto-reply-toggle');
 const autoReplySettings = document.getElementById('auto-reply-settings');
@@ -85,6 +92,13 @@ function updateUI() {
         editedFilterSettings.classList.add('visible');
     } else {
         editedFilterSettings.classList.remove('visible');
+    }
+
+    // Content Filters: Mass Edit
+    if (massEditToggle.checked) {
+        massEditSettings.classList.add('visible');
+    } else {
+        massEditSettings.classList.remove('visible');
     }
 
     // Auto-Reply
@@ -230,6 +244,31 @@ function generateYAML() {
             yaml += `is_edited: true\n`;
             yaml += `action: ${editedAction.value}\n`;
             yaml += `action_reason: "Edited Comment"\n`;
+            yaml += `---\n`;
+        }
+    }
+
+    // Rule: Mass Edited Content
+    if (massEditToggle.checked) {
+        const massEditKeywords = `['redact.dev', 'codepen.io/j0be', 'github.com/j0be', 'codepen.io/pkolyvas', 'the-federation.info', 'Power Delete Suite', 'edited and anonymized', 'edited in protest']`;
+        
+        if (massEditPost.checked) {
+            hasRules = true;
+            yaml += `type: submission\n`;
+            yaml += `body+url (includes): ${massEditKeywords}\n`;
+            yaml += `is_edited: true\n`;
+            yaml += `action: ${massEditAction.value}\n`;
+            yaml += `action_reason: "Mass Edited Post"\n`;
+            yaml += `---\n`;
+        }
+        
+        if (massEditComment.checked) {
+            hasRules = true;
+            yaml += `type: comment\n`;
+            yaml += `body+url (includes): ${massEditKeywords}\n`;
+            yaml += `is_edited: true\n`;
+            yaml += `action: ${massEditAction.value}\n`;
+            yaml += `action_reason: "Mass Edited Comment"\n`;
             yaml += `---\n`;
         }
     }

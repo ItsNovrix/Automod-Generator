@@ -46,6 +46,13 @@ const massEditPost = document.getElementById('mass-edit-post');
 const massEditComment = document.getElementById('mass-edit-comment');
 const massEditAction = document.getElementById('mass-edit-action');
 
+// Crowdfunding Filter
+const crowdfundToggle = document.getElementById('crowdfund-toggle');
+const crowdfundSettings = document.getElementById('crowdfund-settings');
+const crowdfundPost = document.getElementById('crowdfund-post');
+const crowdfundComment = document.getElementById('crowdfund-comment');
+const crowdfundAction = document.getElementById('crowdfund-action');
+
 // Political Terms Filter
 const politicalFilterToggle = document.getElementById('political-filter-toggle');
 const politicalFilterSettings = document.getElementById('political-filter-settings');
@@ -106,6 +113,13 @@ function updateUI() {
         massEditSettings.classList.add('visible');
     } else {
         massEditSettings.classList.remove('visible');
+    }
+
+    // Crowdfunding Filter
+    if (crowdfundToggle.checked) {
+        crowdfundSettings.classList.add('visible');
+    } else {
+        crowdfundSettings.classList.remove('visible');
     }
 
     // Political Terms Filter
@@ -283,6 +297,29 @@ function generateYAML() {
             yaml += `is_edited: true\n`;
             yaml += `action: ${massEditAction.value}\n`;
             yaml += `action_reason: "Mass Edited Comment"\n`;
+            yaml += `---\n`;
+        }
+    }
+
+    // Rule: Crowdfunding Filter
+    if (crowdfundToggle.checked) {
+        const crowdfundKeywords = `['begslist.com', 'booster.com', 'cash.app', 'cash.me', 'charityvest.org', 'crowdfunder.co.uk', 'crowdrise.com', 'donorschoose.org', 'firstgiving.com', 'fnd.us', 'fundanything.com', 'fundly.com', 'fundrazr.com', 'generosity.com', 'gf.me', 'gfwd.at', 'givealittle.co.nz', 'giveforward.com', 'givesendgo.com', 'gofund.me', 'gofundme.com', 'goget.fund', 'gogetfunding.com', 'igg.me', 'indiegogo.com', 'justgiving.com', 'kck.st', 'ketto.org', 'kickbooster.me', 'kckb.st', 'kickstarter.com', 'launchfinance.com.au', 'm-lp.co', 'patreon.com', 'payfriendz.me', 'payit2.com', 'payitsquare.com', 'paypal.com/cgi-bin', 'paypal.com/paypalme', 'paypal.me', 'petcaring.com', 'pitchfuse.com', 'redditmade.com', 'sponsorchange.org', 'tilt.com', 'tilt.tc', 'totalgiving.co.uk', 'youcaring.com', 'youcaring.net', 'youcaring.org']`;
+        
+        if (crowdfundPost.checked) {
+            hasRules = true;
+            yaml += `type: submission\n`;
+            yaml += `title+body+url (includes): ${crowdfundKeywords}\n`;
+            yaml += `action: ${crowdfundAction.value}\n`;
+            yaml += `action_reason: "Crowdfunding/Payment Link in Post"\n`;
+            yaml += `---\n`;
+        }
+        
+        if (crowdfundComment.checked) {
+            hasRules = true;
+            yaml += `type: comment\n`;
+            yaml += `body (includes): ${crowdfundKeywords}\n`;
+            yaml += `action: ${crowdfundAction.value}\n`;
+            yaml += `action_reason: "Crowdfunding/Payment Link in Comment"\n`;
             yaml += `---\n`;
         }
     }

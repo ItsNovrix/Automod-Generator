@@ -30,12 +30,14 @@ const allCapsSettings = document.getElementById('all-caps-settings');
 const capsTitle = document.getElementById('caps-title');
 const capsBody = document.getElementById('caps-body');
 const capsComment = document.getElementById('caps-comment');
+const allCapsAction = document.getElementById('all-caps-action');
 
 // Edited Content Filter Elements
 const editedFilterToggle = document.getElementById('edited-filter-toggle');
 const editedFilterSettings = document.getElementById('edited-filter-settings');
 const editedPost = document.getElementById('edited-post');
 const editedComment = document.getElementById('edited-comment');
+const editedAction = document.getElementById('edited-action');
 
 // Auto-Reply Elements
 const autoReplyToggle = document.getElementById('auto-reply-toggle');
@@ -187,7 +189,7 @@ function generateYAML() {
             hasRules = true;
             yaml += `type: submission\n`;
             yaml += `title (regex, full-exact): ${capsRegex}\n`;
-            yaml += `action: remove\n`;
+            yaml += `action: ${allCapsAction.value}\n`;
             yaml += `action_reason: "ALL CAPS Title"\n`;
             yaml += `---\n`;
         }
@@ -196,7 +198,7 @@ function generateYAML() {
             hasRules = true;
             yaml += `type: submission\n`;
             yaml += `body (regex, full-exact): ${capsRegex}\n`;
-            yaml += `action: remove\n`;
+            yaml += `action: ${allCapsAction.value}\n`;
             yaml += `action_reason: "ALL CAPS Post Body"\n`;
             yaml += `---\n`;
         }
@@ -205,7 +207,7 @@ function generateYAML() {
             hasRules = true;
             yaml += `type: comment\n`;
             yaml += `body (regex, full-exact): ${capsRegex}\n`;
-            yaml += `action: remove\n`;
+            yaml += `action: ${allCapsAction.value}\n`;
             yaml += `action_reason: "ALL CAPS Comment"\n`;
             yaml += `---\n`;
         }
@@ -217,7 +219,7 @@ function generateYAML() {
             hasRules = true;
             yaml += `type: submission\n`;
             yaml += `is_edited: true\n`;
-            yaml += `action: remove\n`;
+            yaml += `action: ${editedAction.value}\n`;
             yaml += `action_reason: "Edited Post"\n`;
             yaml += `---\n`;
         }
@@ -226,7 +228,7 @@ function generateYAML() {
             hasRules = true;
             yaml += `type: comment\n`;
             yaml += `is_edited: true\n`;
-            yaml += `action: remove\n`;
+            yaml += `action: ${editedAction.value}\n`;
             yaml += `action_reason: "Edited Comment"\n`;
             yaml += `---\n`;
         }

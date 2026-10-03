@@ -92,6 +92,7 @@
                     <fieldset>
                         <legend>Content Filters</legend>
 
+                        <!-- Account Age Filter -->
                         <div class="input-group">
                             <input type="checkbox" id="age-filter-toggle">
                             <label for="age-filter-toggle">Filter posts/comments based on account age</label>
@@ -116,6 +117,7 @@
 
                         <hr style="border: 0; border-top: 1px solid var(--line); margin: 15px 0;">
 
+                        <!-- User Karma Filter -->
                         <div class="input-group">
                             <input type="checkbox" id="karma-filter-toggle">
                             <label for="karma-filter-toggle">Filter posts/comments based on user karma</label>
@@ -150,6 +152,7 @@
 
                      <hr style="border: 0; border-top: 1px solid var(--line); margin: 15px 0;">
                         
+                        <!-- ALL CAPS Filter -->
                         <div class="input-group">
                             <input type="checkbox" id="all-caps-toggle">
                             <label for="all-caps-toggle">Filter ALL CAPS content</label>
@@ -180,6 +183,7 @@
 
                         <hr style="border: 0; border-top: 1px solid var(--line); margin: 15px 0;">
 
+                        <!-- Edited Content Filter -->
                         <div class="input-group">
                             <input type="checkbox" id="edited-filter-toggle">
                             <label for="edited-filter-toggle">Filter edited content</label>
@@ -205,6 +209,7 @@
 
                         <hr style="border: 0; border-top: 1px solid var(--line); margin: 15px 0;">
 
+                        <!-- Mass Edit Filter -->
                         <div class="input-group">
                             <input type="checkbox" id="mass-edit-toggle">
                             <label for="mass-edit-toggle">Filter mass-edited content (Redact, Power Delete Suite, etc.)</label>
@@ -224,6 +229,33 @@
 
                             <label for="mass-edit-action" style="display:block; margin-top:10px;">Action to take:</label>
                             <select id="mass-edit-action">
+                                <option value="filter">Filter (Send to mod queue)</option>
+                                <option value="remove">Remove (Delete immediately)</option>
+                            </select>
+                        </div>
+
+                        <hr style="border: 0; border-top: 1px solid var(--line); margin: 15px 0;">
+
+                        <!-- Political Terms Filter -->
+                        <div class="input-group">
+                            <input type="checkbox" id="political-filter-toggle">
+                            <label for="political-filter-toggle">Filter political figures and terminology</label>
+                        </div>
+                        
+                        <div class="sub-input" id="political-filter-settings">
+                            
+                            <div class="input-group" style="margin-bottom: 8px;">
+                                <input type="checkbox" id="political-post" checked>
+                                <label for="political-post">Check posts</label>
+                            </div>
+                            
+                            <div class="input-group">
+                                <input type="checkbox" id="political-comment" checked>
+                                <label for="political-comment">Check comments</label>
+                            </div>
+
+                            <label for="political-action" style="display:block; margin-top:10px;">Action to take:</label>
+                            <select id="political-action">
                                 <option value="filter">Filter (Send to mod queue)</option>
                                 <option value="remove">Remove (Delete immediately)</option>
                             </select>

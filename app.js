@@ -46,6 +46,13 @@ const massEditPost = document.getElementById('mass-edit-post');
 const massEditComment = document.getElementById('mass-edit-comment');
 const massEditAction = document.getElementById('mass-edit-action');
 
+// Political Terms Filter
+const politicalFilterToggle = document.getElementById('political-filter-toggle');
+const politicalFilterSettings = document.getElementById('political-filter-settings');
+const politicalPost = document.getElementById('political-post');
+const politicalComment = document.getElementById('political-comment');
+const politicalAction = document.getElementById('political-action');
+
 // Auto-Reply Elements
 const autoReplyToggle = document.getElementById('auto-reply-toggle');
 const autoReplySettings = document.getElementById('auto-reply-settings');
@@ -80,25 +87,32 @@ function updateUI() {
         karmaSettings.classList.remove('visible');
     }
 
-    // Content Filters: ALL CAPS
+    // ALL CAPS Filter
     if (allCapsToggle.checked) {
         allCapsSettings.classList.add('visible');
     } else {
         allCapsSettings.classList.remove('visible');
     }
 
-    // Content Filters: Edited Content
+    // CEdited Content Filter
     if (editedFilterToggle.checked) {
         editedFilterSettings.classList.add('visible');
     } else {
         editedFilterSettings.classList.remove('visible');
     }
 
-    // Content Filters: Mass Edit
+    // Mass Edit Filter
     if (massEditToggle.checked) {
         massEditSettings.classList.add('visible');
     } else {
         massEditSettings.classList.remove('visible');
+    }
+
+    // Political Terms Filter
+    if (politicalFilterToggle.checked) {
+        politicalFilterSettings.classList.add('visible');
+    } else {
+        politicalFilterSettings.classList.remove('visible');
     }
 
     // Auto-Reply
@@ -269,6 +283,29 @@ function generateYAML() {
             yaml += `is_edited: true\n`;
             yaml += `action: ${massEditAction.value}\n`;
             yaml += `action_reason: "Mass Edited Comment"\n`;
+            yaml += `---\n`;
+        }
+    }
+
+    // Rule: Political Terms Filter
+    if (politicalFilterToggle.checked) {
+        const politicalKeywords = `['dei', 'trump', 'donald', 'biden', 'liberal', 'nazi', 'luigi', 'tesla', 'elon', 'musk', 'charlie kirk', 'kirk', 'tpusa', 'turning point', 'turning point usa', 'libtard', 'tds', 'magats?', 'maggats?', 'liberal\\\\W?morons?', 'sjw', 'snow\\\\W?flakes?']`;
+        
+        if (politicalPost.checked) {
+            hasRules = true;
+            yaml += `type: submission\n`;
+            yaml += `title+body (regex, includes-word): ${politicalKeywords}\n`;
+            yaml += `action: ${politicalAction.value}\n`;
+            yaml += `action_reason: "Political terminology"\n`;
+            yaml += `---\n`;
+        }
+        
+        if (politicalComment.checked) {
+            hasRules = true;
+            yaml += `type: comment\n`;
+            yaml += `body (regex, includes-word): ${politicalKeywords}\n`;
+            yaml += `action: ${politicalAction.value}\n`;
+            yaml += `action_reason: "Political terminology"\n`;
             yaml += `---\n`;
         }
     }

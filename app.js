@@ -31,6 +31,12 @@ const capsTitle = document.getElementById('caps-title');
 const capsBody = document.getElementById('caps-body');
 const capsComment = document.getElementById('caps-comment');
 
+// Edited Content Filter Elements
+const editedFilterToggle = document.getElementById('edited-filter-toggle');
+const editedFilterSettings = document.getElementById('edited-filter-settings');
+const editedPost = document.getElementById('edited-post');
+const editedComment = document.getElementById('edited-comment');
+
 // Auto-Reply Elements
 const autoReplyToggle = document.getElementById('auto-reply-toggle');
 const autoReplySettings = document.getElementById('auto-reply-settings');
@@ -70,6 +76,13 @@ function updateUI() {
         allCapsSettings.classList.add('visible');
     } else {
         allCapsSettings.classList.remove('visible');
+    }
+
+    // Content Filters: Edited Content
+    if (editedFilterToggle.checked) {
+        editedFilterSettings.classList.add('visible');
+    } else {
+        editedFilterSettings.classList.remove('visible');
     }
 
     // Auto-Reply
@@ -167,8 +180,7 @@ function generateYAML() {
 
     // Rule: Remove ALL CAPS Content
     if (allCapsToggle.checked) {
-        // The regex ensures there is at least one uppercase letter and NO lowercase letters.
-        // It ignores numbers and punctuation. This works flawlessly in OG AutoMod and Automod Neo.
+        
         const capsRegex = "'[^a-z]*[A-Z][^a-z]*'";
         
         if (capsTitle.checked) {
@@ -195,6 +207,27 @@ function generateYAML() {
             yaml += `body (regex, full-exact): ${capsRegex}\n`;
             yaml += `action: remove\n`;
             yaml += `action_reason: "ALL CAPS Comment"\n`;
+            yaml += `---\n`;
+        }
+    }
+
+    // Rule: Remove Edited Content
+    if (editedFilterToggle.checked) {
+        if (editedPost.checked) {
+            hasRules = true;
+            yaml += `type: submission\n`;
+            yaml += `is_edited: true\n`;
+            yaml += `action: remove\n`;
+            yaml += `action_reason: "Edited Post"\n`;
+            yaml += `---\n`;
+        }
+        
+        if (editedComment.checked) {
+            hasRules = true;
+            yaml += `type: comment\n`;
+            yaml += `is_edited: true\n`;
+            yaml += `action: remove\n`;
+            yaml += `action_reason: "Edited Comment"\n`;
             yaml += `---\n`;
         }
     }

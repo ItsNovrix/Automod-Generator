@@ -24,6 +24,13 @@ const karmaTarget = document.getElementById('karma-target');
 const karmaAmount = document.getElementById('karma-amount');
 const karmaAction = document.getElementById('karma-action');
 
+// ALL CAPS Filter Elements
+const allCapsToggle = document.getElementById('all-caps-toggle');
+const allCapsSettings = document.getElementById('all-caps-settings');
+const capsTitle = document.getElementById('caps-title');
+const capsBody = document.getElementById('caps-body');
+const capsComment = document.getElementById('caps-comment');
+
 // Auto-Reply Elements
 const autoReplyToggle = document.getElementById('auto-reply-toggle');
 const autoReplySettings = document.getElementById('auto-reply-settings');
@@ -56,6 +63,13 @@ function updateUI() {
         karmaSettings.classList.add('visible');
     } else {
         karmaSettings.classList.remove('visible');
+    }
+
+    // Content Filters: ALL CAPS
+    if (allCapsToggle.checked) {
+        allCapsSettings.classList.add('visible');
+    } else {
+        allCapsSettings.classList.remove('visible');
     }
 
     // Auto-Reply
@@ -149,6 +163,40 @@ function generateYAML() {
         const readableKarmaType = karmaType.options[karmaType.selectedIndex].text;
         yaml += `action_reason: "User has less than ${karmaAmount.value} ${readableKarmaType}"\n`;
         yaml += `---\n`;
+    }
+
+    // Rule: Remove ALL CAPS Content
+    if (allCapsToggle.checked) {
+        // The regex ensures there is at least one uppercase letter and NO lowercase letters.
+        // It ignores numbers and punctuation. This works flawlessly in OG AutoMod and Automod Neo.
+        const capsRegex = "'[^a-z]*[A-Z][^a-z]*'";
+        
+        if (capsTitle.checked) {
+            hasRules = true;
+            yaml += `type: submission\n`;
+            yaml += `title (regex, full-exact): ${capsRegex}\n`;
+            yaml += `action: remove\n`;
+            yaml += `action_reason: "ALL CAPS Title"\n`;
+            yaml += `---\n`;
+        }
+        
+        if (capsBody.checked) {
+            hasRules = true;
+            yaml += `type: submission\n`;
+            yaml += `body (regex, full-exact): ${capsRegex}\n`;
+            yaml += `action: remove\n`;
+            yaml += `action_reason: "ALL CAPS Post Body"\n`;
+            yaml += `---\n`;
+        }
+        
+        if (capsComment.checked) {
+            hasRules = true;
+            yaml += `type: comment\n`;
+            yaml += `body (regex, full-exact): ${capsRegex}\n`;
+            yaml += `action: remove\n`;
+            yaml += `action_reason: "ALL CAPS Comment"\n`;
+            yaml += `---\n`;
+        }
     }
 
     // Rule: Auto-Reply by Keyword

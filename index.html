@@ -236,6 +236,33 @@
 
                         <hr style="border: 0; border-top: 1px solid var(--line); margin: 15px 0;">
 
+                        <!-- Crowdfunding Filter -->
+                        <div class="input-group">
+                            <input type="checkbox" id="crowdfund-toggle">
+                            <label for="crowdfund-toggle">Filter crowdfunding/payment links</label>
+                        </div>
+                        
+                        <div class="sub-input" id="crowdfund-settings">
+                            
+                            <div class="input-group" style="margin-bottom: 8px;">
+                                <input type="checkbox" id="crowdfund-post" checked>
+                                <label for="crowdfund-post">Check posts</label>
+                            </div>
+                            
+                            <div class="input-group">
+                                <input type="checkbox" id="crowdfund-comment" checked>
+                                <label for="crowdfund-comment">Check comments</label>
+                            </div>
+
+                            <label for="crowdfund-action" style="display:block; margin-top:10px;">Action to take:</label>
+                            <select id="crowdfund-action">
+                                <option value="filter">Filter (Send to mod queue)</option>
+                                <option value="remove">Remove (Delete immediately)</option>
+                            </select>
+                        </div>
+
+                        <hr style="border: 0; border-top: 1px solid var(--line); margin: 15px 0;">
+
                         <!-- Political Terms Filter -->
                         <div class="input-group">
                             <input type="checkbox" id="political-filter-toggle">

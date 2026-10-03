@@ -202,6 +202,32 @@
                                 <option value="remove">Remove (Delete immediately)</option>
                             </select>
                         </div>
+
+                        <hr style="border: 0; border-top: 1px solid var(--line); margin: 15px 0;">
+
+                        <div class="input-group">
+                            <input type="checkbox" id="mass-edit-toggle">
+                            <label for="mass-edit-toggle">Filter mass-edited content (Redact, Power Delete Suite, etc.)</label>
+                        </div>
+                        
+                        <div class="sub-input" id="mass-edit-settings">
+                            
+                            <div class="input-group" style="margin-bottom: 8px;">
+                                <input type="checkbox" id="mass-edit-post" checked>
+                                <label for="mass-edit-post">Check edited posts</label>
+                            </div>
+                            
+                            <div class="input-group">
+                                <input type="checkbox" id="mass-edit-comment" checked>
+                                <label for="mass-edit-comment">Check edited comments</label>
+                            </div>
+
+                            <label for="mass-edit-action" style="display:block; margin-top:10px;">Action to take:</label>
+                            <select id="mass-edit-action">
+                                <option value="filter">Filter (Send to Modqueue)</option>
+                                <option value="remove">Remove (Delete immediately)</option>
+                            </select>
+                        </div>
                     </fieldset>
 
                     <fieldset>
